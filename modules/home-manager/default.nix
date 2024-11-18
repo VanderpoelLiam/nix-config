@@ -35,8 +35,8 @@
       enable = true;
       extraConfig = {
         init.defaultBranch = "master";
-        user.name = "VanderpoelLiam";
-        user.email = "liam@superlinear.com";
+        user.name = "Liam Vanderpoel";
+        user.email = "vanderpoel.liam@gmail.com";
         merge.tool = "opendiff";
         diff.tool = "opendiff";
         difftool.prompt = false;
