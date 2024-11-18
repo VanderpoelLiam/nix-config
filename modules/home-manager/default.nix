@@ -35,7 +35,7 @@
       enable = true;
       extraConfig = {
         init.defaultBranch = "master";
-        user.name = "Liam Vanderpoel";
+        user.name = "VanderpoelLiam";
         user.email = "liam@superlinear.com";
         merge.tool = "opendiff";
         diff.tool = "opendiff";
@@ -61,8 +61,7 @@
       shellAliases = {
         ls = "ls --color=auto -F";
         g = "git";
-        nixnix = "nix flake update; darwin-rebuild switch --flake .#";
-        nixswitch = "darwin-rebuild switch --flake ~/nix-config.#";
+        nixswitch = "darwin-rebuild switch --flake ~/nix-config/.#";
         nixup = "pushd ~/nix-config; nix flake update; nixswitch; popd";
       };
 
