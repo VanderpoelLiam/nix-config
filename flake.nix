@@ -12,20 +12,32 @@
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nvim.url = "github:zmre/pwnvim";
   };
-
-  outputs = { nixpkgs, nixpkgs-unstable, home-manager, darwin, ... }: {
-    darwinConfigurations = let
-      userConfig = import ./user-config.nix;
-    in
-    {
-      "${userConfig.hostname}" = darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        pkgs = import nixpkgs { system = "aarch64-darwin"; };
-        modules = [
-          ./modules/darwin
-        ];
-      };
+  outputs = inputs @ {
+    nixpkgs,
+    nixpkgs-unstable,
+    home-manager,
+    darwin,
+    nvim,
+    ...
+  }: {
+    darwinConfigurations.Liams-MacBook-Pro = darwin.lib.darwinSystem {
+      system = "aarch64-darwin";
+      pkgs = import nixpkgs {system = "aarch64-darwin";};
+      modules = [
+        ./modules/darwin
+        home-manager.darwinModules.home-manager
+        {
+          users.users.liam.home = "/Users/liam";
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            extraSpecialArgs = {inherit nvim;};
+            users.liam.imports = [./modules/home-manager];
+          };
+        }
+      ];
     };
   };
 }
