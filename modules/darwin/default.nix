@@ -1,13 +1,13 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs.zsh.enable = true;
   environment = {
-    shells = with pkgs; [ bash zsh ];
-    systemPackages = with pkgs; [ 
-	coreutils
-	git
+    shells = with pkgs; [bash zsh];
+    systemPackages = with pkgs; [
+      coreutils
+      git
     ];
-    systemPath = [ "/opt/homebrew/bin" ];
-    pathsToLink = [ "/Applications" ];
+    systemPath = ["/opt/homebrew/bin"];
+    pathsToLink = ["/Applications"];
   };
 
   # Necessary for using flakes on this system.
@@ -16,7 +16,7 @@
   security.pam.enableSudoTouchIdAuth = true;
   system.keyboard.enableKeyMapping = true;
   system.keyboard.remapCapsLockToEscape = true;
-  fonts.packages = [ (pkgs.nerdfonts.override { fonts = [ "Meslo" ]; }) ];
+  fonts.packages = [(pkgs.nerdfonts.override {fonts = ["Meslo"];})];
   services.nix-daemon.enable = true;
   system.defaults = {
     finder.AppleShowAllExtensions = true;
@@ -35,9 +35,31 @@
     enable = true;
     caskArgs.no_quarantine = true;
     global.brewfile = true;
-    masApps = { };
-    casks = [ "raycast" ];
-    taps = [ ];
-    brews = [ ];
+    masApps = {};
+    casks = [
+      # Development
+      "docker" # docker desktop app
+      "github" # github desktop app
+      "warp"
+      "visual-studio-code"
+
+      # Browsers & Communication
+      "firefox"
+      "slack"
+
+      # Productivity & Utils
+      "raycast"
+      "rectangle" # window manager
+      "chatgpt"
+
+      # System & Utilities
+      "aldente" # Battery management
+      "flow" # Focus timer
+
+      # Media & Entertainment
+      "vlc" # Media player
+    ];
+    taps = [];
+    brews = [];
   };
 }
