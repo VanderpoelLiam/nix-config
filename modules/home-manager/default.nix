@@ -58,6 +58,10 @@
         }
       ];
 
+      initExtra = ''
+        source ~/.p10k.zsh
+      '';
+
       shellAliases = {
         ls = "ls --color=auto -F";
         g = "git";
