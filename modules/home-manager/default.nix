@@ -13,10 +13,10 @@
       tree # Directory listing in tree-like format
       oh-my-zsh # Framework for managing zsh configuration
       zsh-powerlevel10k # Modern, fast zsh theme
-      # poetry
       ripgrep # Fast grep alternative written in Rust
       fzf # Command-line fuzzy finder
       bat # Cat clone with syntax highlighting and git integration
+      pyenv
       nvim.packages."aarch64-darwin".default
     ];
     sessionVariables = {
@@ -73,6 +73,40 @@
         enable = true;
         theme = "robbyrussell";
         plugins = ["git" "docker"];
+      };
+    };
+    vscode = {
+      enable = true;
+
+      # Specify extensions
+      extensions = with pkgs.vscode-extensions; [
+        # ms-python.python
+        editorconfig.editorconfig
+        mhutchie.git-graph
+        njpwerner.autodocstring
+        # GitHub.vscode-pull-request-github
+        # GitHub.copilot
+        charliermarsh.ruff
+        streetsidesoftware.code-spell-checker
+        # p403n1x87.austin-vscode
+        eamodio.gitlens
+        vscodevim.vim
+      ];
+      userSettings = {
+        "git.enableSmartCommit" = true;
+        "git.confirmSync" = false;
+        "git.autofetch" = true;
+        "files.autoSave" = "afterDelay";
+        "explorer.confirmDragAndDrop" = false;
+        "keyboard.dispatch" = "keyCode";
+        "editor.formatOnSave" = true;
+        "vim.smartRelativeLine" = true;
+        "explorer.confirmDelete" = false;
+        "workbench.colorTheme" = "Visual Studio Light";
+        "terminal.integrated.enableMultiLinePasteWarning" = false;
+        "editor.fontFamily" = "'Droid Sans Mono', 'monospace', monospace";
+        "terminal.integrated.fontFamily" = "MesloLGLDZ Nerd Font";
+        "terminal.integrated.fontSize" = 16;
       };
     };
   };

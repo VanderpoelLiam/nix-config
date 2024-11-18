@@ -60,6 +60,8 @@
       "vlc" # Media player
     ];
     taps = [];
-    brews = [];
+    brews = [
+      "poetry"
+    ];
   };
 }
