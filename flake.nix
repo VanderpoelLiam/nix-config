@@ -14,12 +14,12 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, nixpkgs-unstable, home-manager, darwin, ... }: {
-    let
+  outputs = { nixpkgs, nixpkgs-unstable, home-manager, darwin, ... }: {
+    darwinConfigurations = let
       userConfig = import ./user-config.nix;
     in
     {
-      darwinConfigurations."${userConfig.hostname}" = darwin.lib.darwinSystem {
+      "${userConfig.hostname}" = darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         pkgs = import nixpkgs { system = "aarch64-darwin"; };
         modules = [
