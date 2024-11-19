@@ -62,6 +62,8 @@
     taps = [];
     brews = [
       "poetry"
+      "pyenv"
+      "pyenv-virtualenv"
     ];
   };
 }
