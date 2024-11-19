@@ -79,6 +79,8 @@
 
       # Specify extensions
       extensions = with pkgs.vscode-extensions; [
+        ms-vscode-remote.remote-containers
+        ms-vscode.makefile-tools
         # ms-python.python
         editorconfig.editorconfig
         mhutchie.git-graph
