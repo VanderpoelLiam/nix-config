@@ -84,7 +84,7 @@
 
       # Specify extensions
       extensions = with pkgs.vscode-extensions; [
-        ms-vscode-remote.remote-containers
+        # ms-vscode-remote.remote-containers
         ms-vscode.makefile-tools
         # ms-python.python
         editorconfig.editorconfig
@@ -113,7 +113,9 @@
         "editor.fontFamily" = "'Droid Sans Mono', 'monospace', monospace";
         "terminal.integrated.fontFamily" = "MesloLGLDZ Nerd Font";
         "terminal.integrated.fontSize" = 16;
-        "dev.containers.mountWaylandSocket" = false;
+        "python.testing.pytestArgs" = ["tests"];
+        "python.testing.unittestEnabled" = false;
+        "python.testing.pytestEnabled" = true;
       };
     };
   };
