@@ -41,6 +41,7 @@
         init.defaultBranch = "master";
         user.name = "Liam Vanderpoel";
         user.email = "vanderpoel.liam@gmail.com";
+        safe.directory = "*";
         merge.tool = "opendiff";
         diff.tool = "opendiff";
         difftool.prompt = false;
