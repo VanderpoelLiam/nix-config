@@ -110,5 +110,10 @@
         "terminal.integrated.fontSize" = 16;
       };
     };
+    file = {
+      ".inputrc".source = ./dotfiles/inputrc;
+      ".aliases".source = ./dotfiles/aliases; # Add your aliases file
+      ".zshrc.local".source = ./dotfiles/zshrc; # Add your zshrc file
+    };
   };
 }
