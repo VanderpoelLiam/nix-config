@@ -23,6 +23,11 @@
       CLICLOLOR = 1;
       EDITOR = "nvim";
     };
+    file = {
+      ".inputrc".source = ./dotfiles/inputrc;
+      ".aliases".source = ./dotfiles/aliases; # Add your aliases file
+      ".zshrc.local".source = ./dotfiles/zshrc; # Add your zshrc file
+    };
   };
   programs = {
     bat = {
@@ -109,11 +114,6 @@
         "terminal.integrated.fontFamily" = "MesloLGLDZ Nerd Font";
         "terminal.integrated.fontSize" = 16;
       };
-    };
-    file = {
-      ".inputrc".source = ./dotfiles/inputrc;
-      ".aliases".source = ./dotfiles/aliases; # Add your aliases file
-      ".zshrc.local".source = ./dotfiles/zshrc; # Add your zshrc file
     };
   };
 }
