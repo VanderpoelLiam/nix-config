@@ -54,7 +54,7 @@
 
       # System & Utilities
       "aldente" # Battery management
-      "flow" # Focus timer
+      "tomatobar" # Focus timer
 
       # Media & Entertainment
       "vlc" # Media player

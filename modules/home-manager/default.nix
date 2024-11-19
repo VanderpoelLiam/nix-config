@@ -113,6 +113,7 @@
         "editor.fontFamily" = "'Droid Sans Mono', 'monospace', monospace";
         "terminal.integrated.fontFamily" = "MesloLGLDZ Nerd Font";
         "terminal.integrated.fontSize" = 16;
+        "dev.containers.mountWaylandSocket" = false;
       };
     };
   };
