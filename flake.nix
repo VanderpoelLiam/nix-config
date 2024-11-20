@@ -12,14 +12,12 @@
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nvim.url = "github:zmre/pwnvim";
   };
   outputs = inputs @ {
     nixpkgs,
     nixpkgs-unstable,
     home-manager,
     darwin,
-    nvim,
     ...
   }: {
     darwinConfigurations.Liams-MacBook-Pro = darwin.lib.darwinSystem {
@@ -36,7 +34,6 @@
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            extraSpecialArgs = {inherit nvim;};
             users.liam.imports = [./modules/home-manager];
           };
         }

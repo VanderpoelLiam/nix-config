@@ -1,6 +1,5 @@
 {
   pkgs,
-  nvim,
   ...
 }: {
   # Don't change this when you change package input. Leave it alone.
@@ -16,12 +15,11 @@
       ripgrep # Fast grep alternative written in Rust
       fzf # Command-line fuzzy finder
       bat # Cat clone with syntax highlighting and git integration
-      nvim.packages."aarch64-darwin".default
     ];
     sessionVariables = {
       PAGER = "less";
       CLICLOLOR = 1;
-      EDITOR = "nvim";
+      EDITOR = "code";
     };
     file = {
       ".inputrc".source = ./dotfiles/inputrc;
