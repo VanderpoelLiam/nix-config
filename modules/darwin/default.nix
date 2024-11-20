@@ -28,6 +28,7 @@
       };
       dock = {
         autohide = true;
+	show-recents = false; # Disable "Recently Used Apps" section
         persistent-apps = [
           "/Applications/Firefox.app"
           "/Applications/Visual Studio Code.app"
