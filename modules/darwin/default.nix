@@ -28,6 +28,13 @@
       };
       dock = {
         autohide = true;
+        persistent-apps = [
+          "/Applications/Firefox.app"
+          "/Applications/Visual Studio Code.app"
+          "/Applications/ChatGPT.app"
+          "/Applications/Slack.app"
+          "/System/Applications/System Settings.app"
+        ];
       };
       NSGlobalDomain = {
         AppleShowAllExtensions = true;
