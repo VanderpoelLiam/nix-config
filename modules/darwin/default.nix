@@ -60,6 +60,7 @@
       "github" # github desktop app
       "warp"
       "visual-studio-code"
+      "zed"
 
       # Browsers & Communication
       "firefox"
