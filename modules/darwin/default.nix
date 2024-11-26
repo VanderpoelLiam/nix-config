@@ -51,6 +51,7 @@
 
   homebrew = {
     enable = true;
+    onActivation.cleanup = "uninstall";
     caskArgs.no_quarantine = true;
     global.brewfile = true;
     masApps = {};
