@@ -38,7 +38,7 @@
       extraConfig = {
         init.defaultBranch = "master";
         user.name = "Liam Vanderpoel";
-        user.email = "vanderpoel.liam@gmail.com";
+        user.email = "liam@superlinear.com";
         safe.directory = "*";
         merge.tool = "opendiff";
         diff.tool = "opendiff";
