@@ -71,6 +71,7 @@
       "raycast"
       "rectangle" # window manager
       "chatgpt"
+      "notion-calendar"
 
       # System & Utilities
       "aldente" # Battery management
