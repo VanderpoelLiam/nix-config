@@ -15,6 +15,7 @@
       ripgrep # Fast grep alternative written in Rust
       fzf # Command-line fuzzy finder
       bat # Cat clone with syntax highlighting and git integration
+      wget
     ];
     sessionVariables = {
       PAGER = "less";
