@@ -38,6 +38,7 @@
         ];
       };
       NSGlobalDomain = {
+	ApplePressAndHoldEnabled = false;
         AppleShowAllExtensions = true;
         InitialKeyRepeat = 14;
         KeyRepeat = 1;
