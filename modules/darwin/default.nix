@@ -81,6 +81,7 @@
 
       # Media & Entertainment
       "vlc" # Media player
+      "spotify" 
     ];
     taps = [];
     brews = [
