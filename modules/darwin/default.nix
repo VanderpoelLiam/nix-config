@@ -89,6 +89,7 @@
       "uv" # An extremely fast Python package installer and resolver
       "git-lfs"
       "pandoc"
+      "pdftk-java"
     ];
   };
 }
