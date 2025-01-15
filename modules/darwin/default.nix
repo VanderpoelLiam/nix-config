@@ -74,6 +74,7 @@
       "rectangle" # window manager
       "chatgpt"
       "notion-calendar"
+      "obsidian"
 
       # System & Utilities
       "aldente" # Battery management
