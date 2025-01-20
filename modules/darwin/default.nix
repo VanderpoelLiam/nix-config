@@ -62,8 +62,8 @@
       "github" # github desktop app
       "warp"
       "visual-studio-code"
-      "zed"
       "cursor"
+      "ollama"
 
       # Browsers & Communication
       "firefox"
