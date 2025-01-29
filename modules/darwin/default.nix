@@ -14,7 +14,6 @@
   nix.settings.experimental-features = "nix-command flakes";
 
   security.pam.enableSudoTouchIdAuth = true;
-  fonts.packages = [(pkgs.nerdfonts.override {fonts = ["Meslo"];})];
   services.nix-daemon.enable = true;
   system = {
     keyboard = {
