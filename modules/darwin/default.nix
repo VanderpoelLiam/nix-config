@@ -91,6 +91,7 @@
       "git-lfs"
       "pandoc"
       "pdftk-java"
+      "act"
     ];
   };
 }
