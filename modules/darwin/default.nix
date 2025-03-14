@@ -91,6 +91,7 @@
       "pandoc"
       "pdftk-java"
       "act"
+      "hugo"
     ];
   };
 }
