@@ -12,9 +12,9 @@
 
   # Necessary for using flakes on this system.
   nix.settings.experimental-features = "nix-command flakes";
+  nix.enable = false;
 
-  security.pam.enableSudoTouchIdAuth = true;
-  services.nix-daemon.enable = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
   system = {
     keyboard = {
       enableKeyMapping = true;

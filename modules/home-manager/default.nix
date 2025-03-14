@@ -82,40 +82,44 @@
     vscode = {
       enable = true;
 
-      # Specify extensions
-      extensions = with pkgs.vscode-extensions; [
-        # ms-vscode-remote.remote-containers
-        ms-vscode.makefile-tools
-        # ms-python.python
-        editorconfig.editorconfig
-        mhutchie.git-graph
-        njpwerner.autodocstring
-        # GitHub.vscode-pull-request-github
-        # GitHub.copilot
-        charliermarsh.ruff
-        streetsidesoftware.code-spell-checker
-        # p403n1x87.austin-vscode
-        eamodio.gitlens
-        vscodevim.vim
-      ];
-      userSettings = {
-        "git.enableSmartCommit" = true;
-        "git.confirmSync" = false;
-        "git.autofetch" = true;
-        "files.autoSave" = "afterDelay";
-        "explorer.confirmDragAndDrop" = false;
-        "keyboard.dispatch" = "keyCode";
-        "editor.formatOnSave" = true;
-        "vim.smartRelativeLine" = true;
-        "explorer.confirmDelete" = false;
-        "workbench.colorTheme" = "Visual Studio Light";
-        "terminal.integrated.enableMultiLinePasteWarning" = false;
-        "editor.fontFamily" = "'Droid Sans Mono', 'monospace', monospace";
-        "terminal.integrated.fontFamily" = "MesloLGLDZ Nerd Font";
-        "terminal.integrated.fontSize" = 16;
-        "python.testing.pytestArgs" = ["tests"];
-        "python.testing.unittestEnabled" = false;
-        "python.testing.pytestEnabled" = true;
+      profiles = {
+        default = {
+          # Specify extensions
+          extensions = with pkgs.vscode-extensions; [
+            # ms-vscode-remote.remote-containers
+            ms-vscode.makefile-tools
+            # ms-python.python
+            editorconfig.editorconfig
+            mhutchie.git-graph
+            njpwerner.autodocstring
+            # GitHub.vscode-pull-request-github
+            # GitHub.copilot
+            charliermarsh.ruff
+            streetsidesoftware.code-spell-checker
+            # p403n1x87.austin-vscode
+            eamodio.gitlens
+            vscodevim.vim
+          ];
+          userSettings = {
+            "git.enableSmartCommit" = true;
+            "git.confirmSync" = false;
+            "git.autofetch" = true;
+            "files.autoSave" = "afterDelay";
+            "explorer.confirmDragAndDrop" = false;
+            "keyboard.dispatch" = "keyCode";
+            "editor.formatOnSave" = true;
+            "vim.smartRelativeLine" = true;
+            "explorer.confirmDelete" = false;
+            "workbench.colorTheme" = "Visual Studio Light";
+            "terminal.integrated.enableMultiLinePasteWarning" = false;
+            "editor.fontFamily" = "'Droid Sans Mono', 'monospace', monospace";
+            "terminal.integrated.fontFamily" = "MesloLGLDZ Nerd Font";
+            "terminal.integrated.fontSize" = 16;
+            "python.testing.pytestArgs" = ["tests"];
+            "python.testing.unittestEnabled" = false;
+            "python.testing.pytestEnabled" = true;
+          };
+        };
       };
     };
   };
