@@ -77,7 +77,7 @@
 
       # System & Utilities
       "aldente" # Battery management
-      "tomatobar" # Focus timer
+      "pomatez" # Pomodoro timer
 
       # Media & Entertainment
       "vlc" # Media player
