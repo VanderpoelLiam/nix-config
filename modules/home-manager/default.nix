@@ -63,6 +63,8 @@
       ];
 
       initExtra = ''
+        # Add ~/.local/bin to the path array
+        path=("$HOME/.local/bin" $path)
         source ~/.p10k.zsh
       '';
 
