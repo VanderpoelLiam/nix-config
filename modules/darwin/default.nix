@@ -16,6 +16,7 @@
 
   security.pam.services.sudo_local.touchIdAuth = true;
   system = {
+    primaryUser = "liam";
     keyboard = {
       enableKeyMapping = true;
       remapCapsLockToEscape = true;
