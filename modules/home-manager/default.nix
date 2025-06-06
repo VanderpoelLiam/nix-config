@@ -16,6 +16,7 @@
       fzf # Command-line fuzzy finder
       bat # Cat clone with syntax highlighting and git integration
       wget
+      devenv # Fast, declarative, reproducible development environments
     ];
     sessionVariables = {
       PAGER = "less";
