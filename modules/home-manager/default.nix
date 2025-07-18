@@ -74,7 +74,7 @@
         ls = "ls --color=auto -F";
         g = "git";
         nixswitch = "sudo -i darwin-rebuild switch --flake ~/nix-config/.#";
-        nixup = "pushd ~/nix-config; nix flake update --extra-experimental-features 'nix-command flakes'; nixswitch; popd";
+        nixup = "(cd ~/nix-config && nix flake update --extra-experimental-features 'nix-command flakes' && nixswitch)";
       };
 
       oh-my-zsh = {
