@@ -63,7 +63,6 @@
       "warp"
       "visual-studio-code"
       "cursor"
-      "ollama"
 
       # Browsers & Communication
       "firefox"
@@ -94,6 +93,7 @@
       "pdftk-java"
       "act"
       "hugo"
+      "ollama"
     ];
   };
 }
