@@ -17,6 +17,7 @@
       bat # Cat clone with syntax highlighting and git integration
       wget
       devenv # Fast, declarative, reproducible development environments
+      nodejs # JavaScript runtime
     ];
     sessionVariables = {
       PAGER = "less";
@@ -63,7 +64,7 @@
         }
       ];
 
-      initExtra = ''
+      initContent = ''
         # Add ~/.local/bin to the path array
         path=("$HOME/.local/bin" $path)
         source ~/.p10k.zsh
@@ -72,7 +73,7 @@
       shellAliases = {
         ls = "ls --color=auto -F";
         g = "git";
-        nixswitch = "darwin-rebuild switch --flake ~/nix-config/.#";
+        nixswitch = "sudo -i darwin-rebuild switch --flake ~/nix-config/.#";
         nixup = "pushd ~/nix-config; nix flake update; nixswitch; popd";
       };
 

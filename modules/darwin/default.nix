@@ -58,7 +58,7 @@
     masApps = {};
     casks = [
       # Development
-      "docker" # docker desktop app
+      "docker-desktop" # docker desktop app
       "github" # github desktop app
       "warp"
       "visual-studio-code"
