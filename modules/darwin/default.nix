@@ -73,6 +73,7 @@
       "raycast"
       "rectangle" # window manager
       "chatgpt"
+      "claude"
       "notion-calendar"
       "obsidian"
 
