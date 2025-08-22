@@ -63,6 +63,7 @@
       "warp"
       "visual-studio-code"
       "cursor"
+      "zed"
 
       # Browsers & Communication
       "firefox"
