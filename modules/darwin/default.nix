@@ -83,7 +83,8 @@
 
       # Media & Entertainment
       "vlc" # Media player
-      "spotify" 
+      "spotify"
+      "calibre" # E-book management and conversion
     ];
     taps = [];
     brews = [
