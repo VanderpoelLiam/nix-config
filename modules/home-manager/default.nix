@@ -18,6 +18,7 @@
       wget
       devenv # Fast, declarative, reproducible development environments
       nodejs # JavaScript runtime
+      rustup # Rust toolchain installer and version manager
     ];
     sessionVariables = {
       PAGER = "less";
