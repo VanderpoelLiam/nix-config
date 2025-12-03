@@ -18,6 +18,7 @@
       wget
       devenv # Fast, declarative, reproducible development environments
       nodejs # JavaScript runtime
+      pnpm # Fast, disk space efficient package manager for Node.js
       rustup # Rust toolchain installer and version manager
     ];
     sessionVariables = {
@@ -39,7 +40,7 @@
 
     git = {
       enable = true;
-      extraConfig = {
+      settings = {
         init.defaultBranch = "master";
         user.name = "Liam Vanderpoel";
         user.email = "liam@superlinear.com";

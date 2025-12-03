@@ -96,6 +96,11 @@
       "act"
       "hugo"
       "ollama"
+      # Tauri iOS development tools
+      "cocoapods" # iOS dependency manager (pod install)
+      "xcodegen" # Generates Xcode projects
+      "ios-deploy" # Deploy apps to physical iOS devices
+      "libimobiledevice" # Communicate with iOS devices
     ];
   };
 }
