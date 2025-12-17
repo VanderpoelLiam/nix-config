@@ -59,27 +59,19 @@
     casks = [
       # Development
       "docker-desktop" # docker desktop app
-      "github" # github desktop app
       "warp"
-      "visual-studio-code"
       "cursor"
-      "zed"
 
       # Browsers & Communication
       "firefox"
-      "slack"
 
       # Productivity & Utils
       "raycast"
       "rectangle" # window manager
       "chatgpt"
-      "claude"
-      "notion-calendar"
-      "obsidian"
 
       # System & Utilities
       "aldente" # Battery management
-      "tomatobar" # Focus timer
 
       # Media & Entertainment
       "vlc" # Media player
@@ -88,7 +80,6 @@
     ];
     taps = [];
     brews = [
-      "poetry"
       "uv" # An extremely fast Python package installer and resolver
       "git-lfs"
       "pandoc"
@@ -96,11 +87,6 @@
       "act"
       "hugo"
       "ollama"
-      # Tauri iOS development tools
-      "cocoapods" # iOS dependency manager (pod install)
-      "xcodegen" # Generates Xcode projects
-      "ios-deploy" # Deploy apps to physical iOS devices
-      "libimobiledevice" # Communicate with iOS devices
     ];
   };
 }
