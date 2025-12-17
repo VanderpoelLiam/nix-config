@@ -31,10 +31,9 @@
 	show-recents = false; # Disable "Recently Used Apps" section
         persistent-apps = [
           "/Applications/Firefox.app"
-          "/Applications/Visual Studio Code.app"
-          "/Applications/ChatGPT.app"
-          "/Applications/Slack.app"
-          "/System/Applications/System Settings.app"
+          "/Applications/Cursor.app"
+          "/Applications/WhatsApp.app"
+          "/System/Applications/Messages.app"
         ];
       };
       NSGlobalDomain = {
