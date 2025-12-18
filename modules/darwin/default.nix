@@ -1,4 +1,8 @@
-{pkgs, inputs, userConfig, ...}: {
+{ inputs, outputs, config, lib, hostname, system, username, pkgs, ... }:
+let
+  inherit (inputs) nixpkgs;
+in
+{
   programs.zsh.enable = true;
   environment = {
     shells = with pkgs; [bash zsh];
@@ -11,14 +15,16 @@
   };
 
   # Necessary for using flakes on this system.
-  nix.settings.experimental-features = "nix-command flakes";
+  # Determinate Systems manages Nix, so disable nix-darwin's Nix daemon management
+  # Nix still works - this just prevents nix-darwin from trying to manage the daemon
   nix.enable = false;
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  networking.hostName = userConfig.hostname;
+  networking.hostName = hostname;
 
   security.pam.services.sudo_local.touchIdAuth = true;
   system = {
-    primaryUser = userConfig.username;
+    primaryUser = username;
     keyboard = {
       enableKeyMapping = true;
       remapCapsLockToEscape = true;
@@ -51,10 +57,14 @@
   # $ darwin-rebuild changelog
   system.stateVersion = 5;
 
+  fonts.packages = [
+    pkgs.nerd-fonts.jetbrains-mono
+  ];
+
   # nix-homebrew: Manage Homebrew declaratively through Nix
   nix-homebrew = {
     enable = true;
-    user = userConfig.username;
+    user = username;
     taps = {
       "homebrew/core" = inputs.homebrew-core;
       "homebrew/cask" = inputs.homebrew-cask;
@@ -65,10 +75,16 @@
 
   homebrew = {
     enable = true;
-    onActivation.cleanup = "uninstall";
+    onActivation = {
+      cleanup = "zap";
+      autoUpdate = true;
+      upgrade = true;
+    };
     caskArgs.no_quarantine = true;
     global.brewfile = true;
-    masApps = {};
+    masApps = {
+      "WhatsApp" = 310633997;  
+    };
     casks = [
       # Development
       "docker-desktop" # docker desktop app
