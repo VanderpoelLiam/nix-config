@@ -21,7 +21,13 @@ git clone https://github.com/VanderpoelLiam/nix-config.git
 cd nix-config
 ```
 
-2. Create `user-config.nix` with your machine-specific information:
+2. Install Rosetta 2 (required for Intel Homebrew prefix):
+
+```shell
+softwareupdate --install-rosetta --agree-to-license
+```
+
+3. Create `user-config.nix` with your machine-specific information:
 
 ```nix
 {
