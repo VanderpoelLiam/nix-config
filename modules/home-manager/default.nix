@@ -57,7 +57,7 @@ in {
     git = {
       enable = true;
       settings = {
-        init.defaultBranch = "master";
+        init.defaultBranch = "main";
         user.name = userConfig.gitName;
         user.email = userConfig.gitEmail;
         safe.directory = "*";
