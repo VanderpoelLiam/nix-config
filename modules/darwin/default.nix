@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, inputs, ...}: {
   programs.zsh.enable = true;
   environment = {
     shells = with pkgs; [bash zsh];
@@ -48,6 +48,18 @@
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 5;
+
+  # nix-homebrew: Manage Homebrew declaratively through Nix
+  nix-homebrew = {
+    enable = true;
+    user = "liam";
+    taps = {
+      "homebrew/core" = inputs.homebrew-core;
+      "homebrew/cask" = inputs.homebrew-cask;
+      "homebrew/bundle" = inputs.homebrew-bundle;
+    };
+    enableRosetta = true;
+  };
 
   homebrew = {
     enable = true;
