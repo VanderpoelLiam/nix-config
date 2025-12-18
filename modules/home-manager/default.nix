@@ -31,7 +31,6 @@
       ".inputrc".source = ./dotfiles/inputrc;
       ".aliases".source = ./dotfiles/aliases; # Add your aliases file
       ".zshrc.local".source = ./dotfiles/zshrc; # Add your zshrc file
-      "Library/Application Support/Cursor/User/settings.json".source = ./dotfiles/cursor-settings.json;
     };
   };
   programs = {
