@@ -1,5 +1,6 @@
 {
   pkgs,
+  userConfig,
   ...
 }: {
   # Don't change this when you change package input. Leave it alone.
@@ -42,8 +43,8 @@
       enable = true;
       settings = {
         init.defaultBranch = "master";
-        user.name = "Liam Vanderpoel";
-        user.email = "liam@superlinear.com";
+        user.name = userConfig.gitName;
+        user.email = userConfig.gitEmail;
         safe.directory = "*";
         merge.tool = "opendiff";
         diff.tool = "opendiff";

@@ -1,4 +1,4 @@
-{pkgs, inputs, ...}: {
+{pkgs, inputs, userConfig, ...}: {
   programs.zsh.enable = true;
   environment = {
     shells = with pkgs; [bash zsh];
@@ -14,9 +14,11 @@
   nix.settings.experimental-features = "nix-command flakes";
   nix.enable = false;
 
+  networking.hostName = userConfig.hostname;
+
   security.pam.services.sudo_local.touchIdAuth = true;
   system = {
-    primaryUser = "liam";
+    primaryUser = userConfig.username;
     keyboard = {
       enableKeyMapping = true;
       remapCapsLockToEscape = true;
@@ -52,7 +54,7 @@
   # nix-homebrew: Manage Homebrew declaratively through Nix
   nix-homebrew = {
     enable = true;
-    user = "liam";
+    user = userConfig.username;
     taps = {
       "homebrew/core" = inputs.homebrew-core;
       "homebrew/cask" = inputs.homebrew-cask;

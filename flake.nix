@@ -25,24 +25,27 @@
     homebrew-cask,
     homebrew-bundle,
     ...
-  }: {
-    darwinConfigurations.Liams-MacBook-Pro = darwin.lib.darwinSystem {
+  }: let
+    userConfig = import ./user-config.nix;
+  in {
+    darwinConfigurations.${userConfig.hostname} = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       pkgs = import nixpkgs {
         system = "aarch64-darwin";
         config.allowUnfree = true;
       };
-      specialArgs = { inherit inputs; };
+      specialArgs = { inherit inputs userConfig; };
       modules = [
         nix-homebrew.darwinModules.nix-homebrew
         ./modules/darwin
         home-manager.darwinModules.home-manager
         {
-          users.users.liam.home = "/Users/liam";
+          users.users.${userConfig.username}.home = "/Users/${userConfig.username}";
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            users.liam.imports = [./modules/home-manager];
+            extraSpecialArgs = { inherit userConfig; };
+            users.${userConfig.username}.imports = [./modules/home-manager];
           };
         }
       ];
