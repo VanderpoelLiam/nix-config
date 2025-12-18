@@ -3,7 +3,10 @@
   userConfig,
   ...
 }: let
-  cursorConfig = import ./cursor.nix;
+  cursorExtensions = [
+    "vscodevim.vim"
+    "ms-azuretools.vscode-docker"
+  ];
 in {
   # Don't change this when you change package input. Leave it alone.
   home = {
@@ -37,8 +40,12 @@ in {
         source = ./dotfiles/cursor-settings.json;
         force = true;
       };
-    } // cursorConfig.home.file;
-    activation = cursorConfig.home.activation;
+    };
+    activation.installCursorExtensions = ''
+      for ext_id in ${builtins.concatStringsSep " " cursorExtensions}; do
+        /opt/homebrew/bin/cursor --install-extension "$ext_id"
+      done
+    '';
   };
   programs = {
     bat = {
