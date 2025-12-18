@@ -36,6 +36,7 @@ in {
       ".inputrc".source = ./dotfiles/inputrc;
       ".aliases".source = ./dotfiles/aliases; # Add your aliases file
       ".zshrc.local".source = ./dotfiles/zshrc; # Add your zshrc file
+      ".p10k.zsh".source = ./dotfiles/p10k.zsh; # Powerlevel10k configuration
       "Library/Application Support/Cursor/User/settings.json" = {
         source = ./dotfiles/cursor-settings.json;
         force = true;
