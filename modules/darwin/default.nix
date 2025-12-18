@@ -84,36 +84,24 @@ in
     global.brewfile = true;
     masApps = {
       "WhatsApp" = 310633997;  
+      "Home Assistant Companion" = 1099568401;
     };
     casks = [
-      # Development
-      "docker-desktop" # docker desktop app
-      "warp"
       "cursor"
-
-      # Browsers & Communication
       "firefox"
-
-      # Productivity & Utils
       "raycast"
-      "rectangle" # window manager
+      "rectangle" 
       "chatgpt"
-
-      # System & Utilities
-      "aldente" # Battery management
-
-      # Media & Entertainment
-      "vlc" # Media player
+      "vlc"
       "spotify"
-      "calibre" # E-book management and conversion
+      "calibre"
+      "tailscale"
+      "bitwarden"
     ];
     taps = [];
     brews = [
-      "uv" # An extremely fast Python package installer and resolver
+      "uv" 
       "git-lfs"
-      "pandoc"
-      "pdftk-java"
-      "act"
       "hugo"
       "ollama"
     ];
