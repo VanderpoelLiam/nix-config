@@ -14,7 +14,7 @@ See the [Determinate Nix Installer documentation](https://github.com/Determinate
 
 ## Setup
 
-1. Clone this repository:
+1. Clone this repository to your home directory:
 
 ```shell
 git clone https://github.com/VanderpoelLiam/nix-config.git

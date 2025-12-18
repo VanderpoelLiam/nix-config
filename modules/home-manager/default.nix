@@ -31,6 +31,7 @@
       ".inputrc".source = ./dotfiles/inputrc;
       ".aliases".source = ./dotfiles/aliases; # Add your aliases file
       ".zshrc.local".source = ./dotfiles/zshrc; # Add your zshrc file
+      "Library/Application Support/Cursor/User/settings.json".source = ./dotfiles/cursor-settings.json;
     };
   };
   programs = {
@@ -76,7 +77,7 @@
       shellAliases = {
         ls = "ls --color=auto -F";
         g = "git";
-        nixswitch = "sudo -i darwin-rebuild switch --flake ~/nix-config/.#";
+        nixswitch = "sudo -i darwin-rebuild switch --flake \"$HOME/nix-config#${userConfig.hostname}\"";
         nixup = "(cd ~/nix-config && nix flake update --extra-experimental-features 'nix-command flakes' && nixswitch)";
       };
 
