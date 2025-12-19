@@ -11,7 +11,7 @@
   "files.autoSave": "afterDelay",
   "files.autoSaveDelay": 1000,
   "editor.formatOnSave": true,
-  "editor.fontFamily": "'JetBrains Mono', 'JetBrainsMono Nerd Font', 'Courier New', monospace",
+  "editor.fontFamily": "'Google Sans Code', 'Courier New', monospace",
   "editor.fontSize": 14,
   "editor.fontLigatures": true,
   "git.enableSmartCommit": true,
@@ -20,6 +20,6 @@
   "explorer.confirmDragAndDrop": false,
   "explorer.confirmDelete": false,
   "terminal.integrated.enableMultiLinePasteWarning": false,
-  "terminal.integrated.fontFamily": "'JetBrains Mono', 'JetBrainsMono Nerd Font', monospace",
+  "terminal.integrated.fontFamily": "'Google Sans Code', monospace",
   "terminal.integrated.fontSize": 14
 }

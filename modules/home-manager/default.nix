@@ -25,6 +25,7 @@ in {
       nodejs
       pnpm
       defaultbrowser
+      duti
     ];
     sessionVariables = {
       PAGER = "less";
@@ -36,6 +37,7 @@ in {
       ".aliases".source = ./dotfiles/aliases; # Add your aliases file
       ".zshrc.local".source = ./dotfiles/zshrc; # Add your zshrc file
       ".p10k.zsh".source = ./dotfiles/p10k.zsh; # Powerlevel10k configuration
+      ".config/ghostty/config".source = ./dotfiles/ghostty;
       "Library/Application Support/Cursor/User/settings.json" = {
         source = ./dotfiles/cursor-settings.json;
         force = true;
@@ -49,6 +51,14 @@ in {
       '';
       setDefaultBrowser = ''
         ${pkgs.defaultbrowser}/bin/defaultbrowser firefox
+      '';
+      setDefaultTerminal = ''
+        # Set ghostty as default terminal using duti
+        if [ -d "/Applications/ghostty.app" ]; then
+          ${pkgs.duti}/bin/duti -s com.ghostty.app public.unix-executable all 2>/dev/null || true
+          ${pkgs.duti}/bin/duti -s com.ghostty.app public.shell-script all 2>/dev/null || true
+          ${pkgs.duti}/bin/duti -s com.ghostty.app x-terminal-emulator all 2>/dev/null || true
+        fi
       '';
     };
   };

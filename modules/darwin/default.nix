@@ -57,9 +57,8 @@ in
   # $ darwin-rebuild changelog
   system.stateVersion = 5;
 
-  fonts.packages = [
-    pkgs.nerd-fonts.jetbrains-mono
-  ];
+  # Google Sans Code is installed via Homebrew cask (see casks below)
+  # fonts.packages = [];
 
   # nix-homebrew: Manage Homebrew declaratively through Nix
   nix-homebrew = {
@@ -90,6 +89,8 @@ in
     casks = [
       "cursor"
       "firefox"
+      "ghostty"
+      "font-google-sans-code"
       "raycast"
       "rectangle" 
       "chatgpt"
