@@ -13,19 +13,17 @@ in {
     stateVersion = "24.05";
     # specify my home-manager configs
     packages = with pkgs; [
-      curl # Command line tool for transferring data with URLs
-      less # Terminal pager for viewing file contents
-      tree # Directory listing in tree-like format
-      oh-my-zsh # Framework for managing zsh configuration
-      zsh-powerlevel10k # Modern, fast zsh theme
-      ripgrep # Fast grep alternative written in Rust
-      fzf # Command-line fuzzy finder
-      bat # Cat clone with syntax highlighting and git integration
+      curl
+      less
+      tree
+      oh-my-zsh
+      zsh-powerlevel10k
+      ripgrep
+      fzf
+      bat
       wget
-      devenv # Fast, declarative, reproducible development environments
-      nodejs # JavaScript runtime
-      pnpm # Fast, disk space efficient package manager for Node.js
-      rustup # Rust toolchain installer and version manager
+      nodejs
+      pnpm
       defaultbrowser
     ];
     sessionVariables = {
@@ -96,7 +94,6 @@ in {
 
       shellAliases = {
         ls = "ls --color=auto -F";
-        g = "git";
         nixswitch = "sudo -i darwin-rebuild switch --flake \"$HOME/nix-config#${userConfig.hostname}\"";
         nixup = "(cd ~/nix-config && nix flake update --extra-experimental-features 'nix-command flakes' && nixswitch)";
       };
