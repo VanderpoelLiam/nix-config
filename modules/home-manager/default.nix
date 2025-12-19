@@ -59,9 +59,9 @@ in {
       setDefaultTerminal = ''
         # Set ghostty as default terminal using duti
         if [ -d "/Applications/ghostty.app" ]; then
-          ${pkgs.duti}/bin/duti -s com.ghostty.app public.unix-executable all 2>/dev/null || true
-          ${pkgs.duti}/bin/duti -s com.ghostty.app public.shell-script all 2>/dev/null || true
-          ${pkgs.duti}/bin/duti -s com.ghostty.app x-terminal-emulator all 2>/dev/null || true
+          ${pkgs.duti}/bin/duti -s com.ghostty.app public.unix-executable all
+          ${pkgs.duti}/bin/duti -s com.ghostty.app public.shell-script all
+          ${pkgs.duti}/bin/duti -s com.ghostty.app x-terminal-emulator all
         fi
       '';
     };
