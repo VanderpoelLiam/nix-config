@@ -42,6 +42,10 @@ in {
         source = ./dotfiles/cursor-settings.json;
         force = true;
       };
+      "Library/Application Support/Rectangle/RectangleConfig.json" = {
+        source = ./dotfiles/rectangle-config.json;
+        force = true;
+      };
     };
     activation = {
       installCursorExtensions = ''
