@@ -26,6 +26,7 @@ in {
       nodejs # JavaScript runtime
       pnpm # Fast, disk space efficient package manager for Node.js
       rustup # Rust toolchain installer and version manager
+      defaultbrowser
     ];
     sessionVariables = {
       PAGER = "less";
@@ -42,11 +43,16 @@ in {
         force = true;
       };
     };
-    activation.installCursorExtensions = ''
-      for ext_id in ${builtins.concatStringsSep " " cursorExtensions}; do
-        /opt/homebrew/bin/cursor --install-extension "$ext_id"
-      done
-    '';
+    activation = {
+      installCursorExtensions = ''
+        for ext_id in ${builtins.concatStringsSep " " cursorExtensions}; do
+          /opt/homebrew/bin/cursor --install-extension "$ext_id"
+        done
+      '';
+      setDefaultBrowser = ''
+        ${pkgs.defaultbrowser}/bin/defaultbrowser firefox
+      '';
+    };
   };
   programs = {
     bat = {
