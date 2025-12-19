@@ -85,6 +85,7 @@ in
     masApps = {
       "WhatsApp" = 310633997;  
       "Home Assistant Companion" = 1099568401;
+      "Perplexity" = 6714467650;
     };
     casks = [
       "cursor"
@@ -95,7 +96,7 @@ in
       "vlc"
       "spotify"
       "calibre"
-      "tailscale"
+      "tailscale-app"
       "bitwarden"
     ];
     taps = [];
