@@ -42,6 +42,9 @@ in
           "/Applications/Cursor.app"
           "/Applications/WhatsApp.app"
           "/System/Applications/Messages.app"
+          "/Applications/Home Assistant.app"
+          "/Applications/Bitwarden.app"
+          "/Applications/Ghostty.app"
         ];
       };
       NSGlobalDomain = {
