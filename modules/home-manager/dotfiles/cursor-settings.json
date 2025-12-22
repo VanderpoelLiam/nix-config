@@ -1,5 +1,4 @@
 {
-  "vim.enabled": true,
   "vim.useSystemClipboard": true,
   "vim.hlsearch": true,
   "vim.leader": "<space>",

@@ -53,6 +53,27 @@ in
         InitialKeyRepeat = 14;
         KeyRepeat = 1;
       };
+      menuExtraClock = {
+        Show24Hour = true;
+        ShowDayOfWeek = true;
+      };
+      # 18 = show in menu bar, 24 = hide from menu bar
+      CustomUserPreferences = {
+        "com.apple.controlcenter" = {
+          Bluetooth = 24;
+          AirDrop = 24;
+          Display = 24;
+          Sound = 24;
+          NowPlaying = 24;
+          FocusModes = 24;
+        };
+        "com.apple.TextInputMenu" = {
+          visible = false;
+        };
+        "com.apple.Spotlight" = {
+          MenuItemHidden = 1;
+        };
+      };
     };
   };
 
