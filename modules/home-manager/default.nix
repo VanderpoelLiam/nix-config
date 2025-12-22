@@ -110,6 +110,7 @@ in {
         ls = "ls --color=auto -F";
         nixswitch = "sudo -i darwin-rebuild switch --flake \"$HOME/nix-config#${userConfig.hostname}\"";
         nixup = "(cd ~/nix-config && nix flake update --extra-experimental-features 'nix-command flakes' && nixswitch)";
+        nixgc = "nix-collect-garbage --delete-older-than 10d";
       };
 
       oh-my-zsh = {

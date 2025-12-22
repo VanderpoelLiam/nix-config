@@ -14,11 +14,10 @@ in
     pathsToLink = ["/Applications"];
   };
 
-  # Necessary for using flakes on this system.
-  # Determinate Systems manages Nix, so disable nix-darwin's Nix daemon management
-  # Nix still works - this just prevents nix-darwin from trying to manage the daemon
+  # Let Determinate Nix handle Nix configuration
   nix.enable = false;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.auto-optimise-store = true;
 
   networking.hostName = hostname;
 
