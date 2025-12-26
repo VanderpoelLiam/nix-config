@@ -1,6 +1,6 @@
 # My Nix Configuration for macOS
 
-Minimal instructions to install and configure nix-darwin on a fresh Mac to deterministically manage packages and system configuration.
+Minimal instructions to install and configure nix-darwin.
 
 ## Installation
 
@@ -67,3 +67,53 @@ After initial setup, you can use the convenience aliases:
 
 - `nixswitch` - Rebuild and switch to the current configuration
 - `nixup` - Update flake inputs and rebuild
+
+## Configuration Structure
+
+```shell
+hosts
+`-- darwin
+    |-- apps
+    |   |-- [...].nix       # Apps without config files
+    |   |-- [...]           # Apps with config files (folder + config/)
+    |   |   |-- config
+    |   |   `-- [...].nix
+    |   `-- default.nix
+    |-- default.nix
+    |-- environment.nix
+    |-- home.nix
+    |-- homebrew.nix
+    |-- packages.nix
+    `-- system.nix
+home-manager
+|-- apps
+|   |-- [...].nix       # Apps without config files
+|   |-- [...]           # Apps with config files (folder + config/)
+|   |   |-- config
+|   |   `-- [...].nix
+|   `-- default.nix
+|-- default.nix
+|-- home.nix
+`-- packages.nix
+```
+
+### Directory Overview
+
+- **`hosts/darwin/`** - macOS-specific system config and modules
+- **`home-manager/`** - Cross-platform reusable modules
+
+### Adding New Configuration
+
+#### Packages
+- **General packages**: Add to `home-manager/packages.nix`
+- **macOS-specific packages**: Add to `hosts/darwin/packages.nix`
+
+#### Apps
+
+Apps follow the same structure in both `home-manager/apps/` and `hosts/darwin/apps/`:
+
+| Config Files | Structure |
+|-------------|-----------|
+| None | `apps/newapp.nix` |
+| Single | `apps/newapp/`<br>`├── newapp.nix`<br>`└── config.json` |
+| Multiple | `apps/newapp/`<br>`├── newapp.nix`<br>`└── config/`   |

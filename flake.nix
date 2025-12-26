@@ -37,7 +37,7 @@
         };
         modules = [
           nix-homebrew.darwinModules.nix-homebrew
-          ./modules/darwin
+          ./hosts/darwin
           home-manager.darwinModules.home-manager
           {
             users.users.${userConfig.username}.home = "/Users/${userConfig.username}";
@@ -45,7 +45,7 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               extraSpecialArgs = { inherit userConfig; };
-              users.${userConfig.username}.imports = [./modules/home-manager];
+              users.${userConfig.username}.imports = [./hosts/darwin/home.nix];
             };
           }
         ];
