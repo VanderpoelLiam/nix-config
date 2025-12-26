@@ -14,20 +14,20 @@ See the [Determinate Nix Installer documentation](https://github.com/Determinate
 
 ## Setup
 
-1. Clone this repository to your home directory:
+Clone this repository to your home directory:
 
 ```shell
 git clone https://github.com/VanderpoelLiam/nix-config.git
 cd nix-config
 ```
 
-2. Install Rosetta 2 (required for Intel Homebrew prefix):
+Install Rosetta 2 (required for Intel Homebrew prefix):
 
 ```shell
 softwareupdate --install-rosetta --agree-to-license
 ```
 
-3. Create `user-config.nix` with your machine-specific information:
+Create `user-config.nix` with your machine-specific information:
 
 ```nix
 {
@@ -45,7 +45,7 @@ softwareupdate --install-rosetta --agree-to-license
 
 ## Build and Apply
 
-1. Build the nix-darwin system configuration:
+Build the nix-darwin system configuration:
 
 ```shell
 nix --extra-experimental-features 'nix-command flakes'  build ".#darwinConfigurations.{{hostname}}.system"
@@ -53,7 +53,7 @@ nix --extra-experimental-features 'nix-command flakes'  build ".#darwinConfigura
 
 Replacing `{{hostname}}` with the hostname of the machine.
 
-2. Switch to the configuration:
+Switch to the configuration:
 
 ```shell
 sudo ./result/sw/bin/darwin-rebuild switch --flake ".#"

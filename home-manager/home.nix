@@ -21,6 +21,8 @@
     wget
     nodejs
     pnpm
+    uv
+    git-lfs
   ];
 }
 

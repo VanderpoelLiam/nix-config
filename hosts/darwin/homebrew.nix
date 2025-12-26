@@ -31,19 +31,16 @@
       "firefox"
       "ghostty"
       "font-atkinson-hyperlegible-mono"
-      "raycast"
       "rectangle" 
       "chatgpt"
+      "calibre"
       "vlc"
       "spotify"
-      "calibre"
-      "tailscale-app"
       "bitwarden"
+      "tailscale-app"
     ];
     taps = [];
     brews = [
-      "uv" 
-      "git-lfs"
       "hugo"
       "ollama"
     ];
