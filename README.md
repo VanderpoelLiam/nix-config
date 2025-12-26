@@ -74,27 +74,19 @@ After initial setup, you can use the convenience aliases:
 hosts
 `-- darwin
     |-- apps
-    |   |-- [...].nix       # Apps without config files
-    |   |-- [...]           # Apps with config files (folder + config/)
-    |   |   |-- config
-    |   |   `-- [...].nix
+    |   |-- [...]           
     |   `-- default.nix
     |-- default.nix
     |-- environment.nix
     |-- home.nix
     |-- homebrew.nix
-    |-- packages.nix
     `-- system.nix
 home-manager
 |-- apps
-|   |-- [...].nix       # Apps without config files
-|   |-- [...]           # Apps with config files (folder + config/)
-|   |   |-- config
-|   |   `-- [...].nix
+|   |-- [...]        
 |   `-- default.nix
 |-- default.nix
-|-- home.nix
-`-- packages.nix
+`-- home.nix
 ```
 
 ### Directory Overview
@@ -105,8 +97,8 @@ home-manager
 ### Adding New Configuration
 
 #### Packages
-- **General packages**: Add to `home-manager/packages.nix`
-- **macOS-specific packages**: Add to `hosts/darwin/packages.nix`
+- **General packages**: Add to `home-manager/home.nix`
+- **macOS-specific packages**: Add to `hosts/darwin/home.nix`
 
 #### Apps
 
