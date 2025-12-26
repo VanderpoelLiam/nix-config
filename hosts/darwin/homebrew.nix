@@ -30,7 +30,7 @@
       "cursor"
       "firefox"
       "ghostty"
-      "font-google-sans-code"
+      "font-atkinson-hyperlegible-mono"
       "raycast"
       "rectangle" 
       "chatgpt"
