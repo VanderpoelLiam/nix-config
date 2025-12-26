@@ -8,7 +8,6 @@
   home.packages = with pkgs; [
     defaultbrowser
     duti
-    raycast
   ];
 
   home.activation = {

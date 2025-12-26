@@ -38,6 +38,7 @@
       "spotify"
       "bitwarden"
       "tailscale-app"
+      "raycast"
     ];
     taps = [];
     brews = [
