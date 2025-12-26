@@ -25,6 +25,7 @@
       "WhatsApp" = 310633997;  
       "Home Assistant Companion" = 1099568401;
       "Perplexity" = 6714467650;
+      "Trello" = 1278508951;
     };
     casks = [
       "cursor"

@@ -20,6 +20,7 @@
         persistent-apps = [
           "/Applications/Firefox.app"
           "/Applications/Cursor.app"
+          "/Applications/Trello.app"
           "/Applications/WhatsApp.app"
           "/System/Applications/Messages.app"
           "/Applications/Home Assistant.app"
