@@ -54,6 +54,12 @@
         "com.apple.Spotlight" = {
           MenuItemHidden = 1;
         };
+        "com.apple.LaunchServices/com.apple.launchservices.secure" = {
+          LSHandlers = [
+            { LSHandlerRoleAll = "org.mozilla.firefox"; LSHandlerURLScheme = "http"; }
+            { LSHandlerRoleAll = "org.mozilla.firefox"; LSHandlerURLScheme = "https"; }
+          ];
+        };
       };
     };
   };
