@@ -4,6 +4,7 @@ let
     "vscodevim.vim"
     "ms-azuretools.vscode-docker"
     "anysphere.remote-ssh"
+    "anthropic.claude-code"
   ];
 in
 {

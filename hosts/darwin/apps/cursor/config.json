@@ -20,5 +20,6 @@
   "explorer.confirmDelete": false,
   "terminal.integrated.enableMultiLinePasteWarning": false,
   "terminal.integrated.fontFamily": "'Atkinson Hyperlegible Mono', monospace",
-  "terminal.integrated.fontSize": 14
+  "terminal.integrated.fontSize": 14,
+  "claudeCode.preferredLocation": "panel"
 }
