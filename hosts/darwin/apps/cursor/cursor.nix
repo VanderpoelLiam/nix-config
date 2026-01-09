@@ -3,6 +3,7 @@ let
   cursorExtensions = [
     "vscodevim.vim"
     "ms-azuretools.vscode-docker"
+    "anysphere.remote-ssh"
   ];
 in
 {
