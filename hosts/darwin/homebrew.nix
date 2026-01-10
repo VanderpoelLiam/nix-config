@@ -40,6 +40,7 @@
       "bitwarden"
       "tailscale-app"
       "raycast"
+      "claude-code"
     ];
     taps = [];
     brews = [
