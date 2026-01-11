@@ -1,11 +1,19 @@
 {
-  # The hostname of the machine.
-  hostname = "Liams-MacBook-Pro";
-  
-  # The system username.
-  username = "liam";
-  
-  # Git user name and email
-  gitName = "Liam Vanderpoel";
-  gitEmail = "vanderpoel.liam@gmail.com";
+  # Global settings (all machines)
+  global = {
+    username = "liam";
+    gitName = "Liam Vanderpoel";
+    gitEmail = "vanderpoel.liam@gmail.com"; # TODO: move to sops
+  };
+
+  # Per-machine settings
+  machines = {
+    "Liams-MacBook-Pro" = {
+      system = "aarch64-darwin";
+    };
+    "trantor" = {
+      system = "x86_64-linux";
+      disk = "/dev/sda";
+    };
+  };
 }
