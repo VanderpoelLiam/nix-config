@@ -17,6 +17,10 @@
     homebrew-core = { url = "github:homebrew/homebrew-core"; flake = false; };
     homebrew-cask = { url = "github:homebrew/homebrew-cask"; flake = false; };
     homebrew-bundle = { url = "github:homebrew/homebrew-bundle"; flake = false; };
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { ... }@inputs:
@@ -48,6 +52,18 @@
               users.${username}.imports = [ ./modules/darwin/Liams-MacBook-Pro/home.nix ];
             };
           }
+        ];
+      };
+
+      nixosConfigurations.trantor = nixpkgs.lib.nixosSystem {
+        system = userConfig.machines.trantor.system;
+        specialArgs = { inherit inputs userConfig; };
+        modules = [
+          disko.nixosModules.disko
+          ./disko/trantor.nix
+          ./modules/nixos/trantor
+          ./modules/shared/nix-settings.nix
+          ./modules/users/liam
         ];
       };
     };
