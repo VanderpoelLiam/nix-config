@@ -10,19 +10,18 @@
   };
 
   home.packages = with pkgs; [
-    curl
-    less
-    tree
-    oh-my-zsh
-    zsh-powerlevel10k
-    ripgrep
-    fzf
     bat
-    wget
-    nodejs
-    pnpm
-    uv
+    curl
+    fzf
     git-lfs
+    just
+    less
+    oh-my-zsh
+    ripgrep
+    tree
+    uv
+    wget
+    zsh-powerlevel10k
   ];
 }
 
