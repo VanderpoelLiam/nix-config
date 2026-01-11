@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    ../../home-manager/default.nix
+    ../../home
     ./apps
   ];
 }
