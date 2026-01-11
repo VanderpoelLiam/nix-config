@@ -1,5 +1,5 @@
 {
-  description = "Darwin System Configuration";
+  description = "Nix Configuration";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
@@ -18,37 +18,37 @@
     homebrew-cask = { url = "github:homebrew/homebrew-cask"; flake = false; };
     homebrew-bundle = { url = "github:homebrew/homebrew-bundle"; flake = false; };
   };
+
   outputs = { ... }@inputs:
     with inputs;
     let
       userConfig = import ./user-config.nix;
+      username = userConfig.global.username;
     in {
-      darwinConfigurations.${userConfig.hostname} = darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
+      darwinConfigurations."Liams-MacBook-Pro" = darwin.lib.darwinSystem {
+        system = userConfig.machines."Liams-MacBook-Pro".system;
         pkgs = import nixpkgs-darwin {
-          system = "aarch64-darwin";
+          system = userConfig.machines."Liams-MacBook-Pro".system;
           config.allowUnfree = true;
         };
         specialArgs = {
-          inherit inputs;
-          hostname = userConfig.hostname;
-          system = "aarch64-darwin";
-          username = userConfig.username;
+          inherit inputs userConfig username;
+          hostname = "Liams-MacBook-Pro";
         };
         modules = [
           nix-homebrew.darwinModules.nix-homebrew
-          ./hosts/darwin
+          ./modules/darwin/Liams-MacBook-Pro
           home-manager.darwinModules.home-manager
           {
-            users.users.${userConfig.username}.home = "/Users/${userConfig.username}";
+            users.users.${username}.home = "/Users/${username}";
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs = { inherit userConfig; };
-              users.${userConfig.username}.imports = [./hosts/darwin/home.nix];
+              extraSpecialArgs = { inherit userConfig; hostname = "Liams-MacBook-Pro"; };
+              users.${username}.imports = [ ./modules/darwin/Liams-MacBook-Pro/home.nix ];
             };
           }
         ];
       };
     };
-  }
+}

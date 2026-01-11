@@ -1,4 +1,4 @@
-{ pkgs, userConfig, ... }:
+{ pkgs, hostname, ... }:
 {
   home.file = {
     ".inputrc".source = ./config/inputrc;
@@ -29,7 +29,7 @@
 
     shellAliases = {
       ls = "ls --color=auto -F";
-      nixswitch = "sudo -i darwin-rebuild switch --flake \"$HOME/nix-config#${userConfig.hostname}\"";
+      nixswitch = "sudo -i darwin-rebuild switch --flake \"$HOME/nix-config#${hostname}\"";
       nixup = "(cd ~/nix-config && nix flake update --extra-experimental-features 'nix-command flakes' && nixswitch)";
       nixgc = "nix-collect-garbage --delete-older-than 10d";
     };

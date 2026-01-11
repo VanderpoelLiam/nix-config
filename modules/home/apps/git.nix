@@ -4,8 +4,8 @@
     enable = true;
     settings = {
       init.defaultBranch = "main";
-      user.name = userConfig.gitName;
-      user.email = userConfig.gitEmail;
+      user.name = userConfig.global.gitName;
+      user.email = userConfig.global.gitEmail;
       safe.directory = "*";
       merge.tool = "opendiff";
       diff.tool = "opendiff";
