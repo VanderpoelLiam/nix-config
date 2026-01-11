@@ -1,16 +1,12 @@
-{ config, ... }:
+{ ... }:
 {
-  imports = [ ./hardware.nix ];
+  imports = [
+    ./hardware.nix
+    ./services
+  ];
 
   networking.hostName = "trantor";
-
-  services.tailscale.enable = true;
-
-  networking.firewall = {
-    enable = true;
-    trustedInterfaces = [ "tailscale0" ];
-    allowedUDPPorts = [ config.services.tailscale.port ];
-  };
+  networking.firewall.enable = true;
 
   system.stateVersion = "24.05";
 }
