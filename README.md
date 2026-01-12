@@ -48,7 +48,7 @@ Assumes we have already setup a piKVM `trantor-kvm` and connected it to the `tra
 
 ### Boot NixOS via piKVM
 
-We use `netboot` mounted on a piKVM to boot the NixOS installer. Download the [netboot.xyz ISO](https://netboot.xyz/downloads/). Upload and mount the ISO on the KVM, see [piKVM Mass Storage Drive](https://docs.pikvm.org/msd/). Boot from this ISO then select 
+We use `netboot` mounted on a piKVM to boot the NixOS installer. Download the [netboot.xyz ISO](https://netboot.xyz/downloads/). Upload and mount the ISO on the KVM, see [piKVM Mass Storage Drive](https://docs.pikvm.org/msd/). Boot from this ISO then select NixOS.
 
 ### Install
 Based on [Installing on a machine with no operating system](https://github.com/nix-community/nixos-anywhere/blob/main/docs/howtos/no-os.md):
