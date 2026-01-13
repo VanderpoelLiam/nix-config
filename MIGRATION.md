@@ -12,16 +12,13 @@ Temporary file - delete when migration complete.
 
 ## Remaining Tasks
 
-### Phase 4: Services
+### Phase 4: Services and Secrets
 Add services to `modules/nixos/trantor/services/`:
 ```sh
 just check-nixos trantor  # validate after each
 ```
-
-### Phase 5: Secrets
 - [ ] Set up sops-nix
-- [ ] Move `gitEmail` from `user-config.nix` to secrets
-- [ ] Add Tailscale auth key to secrets
+- [ ] Move sensitive API keys to secrets
 
 ## Docker Compose Services
 
