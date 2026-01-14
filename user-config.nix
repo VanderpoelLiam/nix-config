@@ -3,7 +3,7 @@
   global = {
     username = "liam";
     gitName = "Liam Vanderpoel";
-    gitEmail = "vanderpoel.liam@gmail.com"; # TODO: move to sops
+    gitEmail = "vanderpoel.liam@gmail.com";
   };
 
   # Per-machine settings
@@ -12,6 +12,10 @@
       system = "aarch64-darwin";
     };
     "trantor" = {
+      system = "x86_64-linux";
+      disk = "/dev/sda";
+    };
+    "hyperion" = {
       system = "x86_64-linux";
       disk = "/dev/sda";
     };

@@ -21,6 +21,10 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { ... }@inputs:
@@ -28,6 +32,23 @@
     let
       userConfig = import ./user-config.nix;
       username = userConfig.global.username;
+
+      # Shared overlay for accessing unstable packages
+      unstableOverlay = final: prev: {
+        unstable = import nixpkgs-unstable {
+          system = prev.system;
+          config.allowUnfree = true;
+        };
+      };
+
+      # Common NixOS modules for all systems
+      commonNixosModules = [
+        ./modules/shared/nix-settings.nix
+        ./modules/users/liam
+        ({ config, pkgs, ... }: {
+          nixpkgs.overlays = [ unstableOverlay ];
+        })
+      ];
     in {
       darwinConfigurations."Liams-MacBook-Pro" = darwin.lib.darwinSystem {
         system = userConfig.machines."Liams-MacBook-Pro".system;
@@ -62,9 +83,18 @@
           disko.nixosModules.disko
           ./disko/trantor.nix
           ./modules/nixos/trantor
-          ./modules/shared/nix-settings.nix
-          ./modules/users/liam
-        ];
+        ] ++ commonNixosModules;
+      };
+
+      nixosConfigurations.hyperion = nixpkgs.lib.nixosSystem {
+        system = userConfig.machines.hyperion.system;
+        specialArgs = { inherit inputs userConfig; };
+        modules = [
+          disko.nixosModules.disko
+          sops-nix.nixosModules.sops
+          ./disko/hyperion.nix
+          ./modules/nixos/hyperion
+        ] ++ commonNixosModules;
       };
     };
 }
