@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, userConfig, ... }:
 {
   virtualisation.oci-containers.backend = "podman";
 
@@ -10,7 +10,7 @@
       "8081:80/tcp"
     ];
     environment = {
-      TZ = "Europe/Zurich";
+      TZ = userConfig.global.timezone;
       FTLCONF_dns_listeningMode = "all";
       FTLCONF_webserver_api_password_FILE = "/run/secrets/pihole_password";
     };

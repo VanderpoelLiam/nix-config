@@ -1,18 +1,22 @@
-# Nix configuration tasks
+#!/usr/bin/env -S just --justfile
+
+# Default recipe - show available commands
+default:
+  @just --list
 
 # Check flake
 check:
     nix flake check
 
-# Dry-run build for Darwin machine
-check-darwin machine:
-    nix build .#darwinConfigurations.{{machine}}.system --dry-run
+# Dry-run build for my MacBook
+check-darwin:
+    nix build .#darwinConfigurations."Liams-MacBook-Pro".system --dry-run
 
 # Dry-run build for NixOS machine
 check-nixos machine:
     nix build .#nixosConfigurations.{{machine}}.config.system.build.toplevel --dry-run
 
-# Build and switch Darwin config
+# Build and switch my MacBook
 switch:
     sudo darwin-rebuild switch --flake .
 

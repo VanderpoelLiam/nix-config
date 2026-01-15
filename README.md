@@ -114,6 +114,12 @@ Deploy:
 just deploy hyperion
 ```
 
+After deploying you need to start Tailscale on the server (and optionally set the machine as an exit node):
+
+```sh
+sudo tailscale up --advertise-exit-node
+```
+
 ### Editing secrets
 
 To edit an already-encrypted secrets file:

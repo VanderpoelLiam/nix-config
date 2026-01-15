@@ -4,6 +4,7 @@
     username = "liam";
     gitName = "Liam Vanderpoel";
     gitEmail = "vanderpoel.liam@gmail.com";
+    timezone = "Europe/Zurich";
   };
 
   # Per-machine settings
