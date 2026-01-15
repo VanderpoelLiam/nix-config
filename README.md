@@ -116,11 +116,14 @@ just deploy hyperion
 
 ### Editing secrets
 
-From either the client or server machine, we can edit the secrets with:
+To edit an already-encrypted secrets file:
 
 ```sh
-nix-shell -p sops --run "sops secrets/hyperion.yaml"
+# This opens the decrypted file in vim
+nix-shell -p sops --run "EDITOR=vim sops secrets/hyperion.yaml"
 ```
+
+Make changes, then save the file (:wq), sops will automatically re-encrypt.
 
 <!-- ## Trantor Setup
 
