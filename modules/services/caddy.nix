@@ -4,38 +4,20 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    virtualisation = {
-      podman.enable = true;
-      oci-containers.containers.caddy = {
-        image = "ghcr.io/caddybuilds/caddy-cloudflare:latest";
-        autoStart = true;
-        extraOptions = [
-          "--pull=newer"
-          "--network=host"
-          "--cap-add=NET_ADMIN"
-        ];
-        volumes = [
-          "/var/lib/caddy/Caddyfile:/etc/caddy/Caddyfile"
-          "/var/lib/caddy/data:/data"
-          "/var/lib/caddy/config:/config"
-        ];
-        environmentFiles = [
-          config.sops.secrets.cloudflare_api_token.path
-        ];
-      };
-    };
-
-    # Create Caddy data directory
-    systemd.tmpfiles.rules = [
-      "d /var/lib/caddy 0755 root root - -"
-      "d /var/lib/caddy/data 0755 root root - -"
-      "d /var/lib/caddy/config 0755 root root - -"
-    ];
-
-    # Configure ACME for wildcard certificate (Caddy handles this via acme_dns)
+    # Configure ACME for wildcard certificate using Cloudflare DNS-01 challenge
     security.acme = {
       acceptTerms = true;
-      defaults.email = "${userConfig.global.gitEmail}";
+      defaults.email = "acme@localhost";
+
+      certs."${userConfig.global.baseDomain}" = {
+        group = config.services.caddy.group;
+        domain = "*.internal.${userConfig.global.baseDomain}";
+        extraDomainNames = [ "internal.${userConfig.global.baseDomain}" ];
+        dnsProvider = "cloudflare";
+        dnsResolver = "1.1.1.1:53";
+        dnsPropagationCheck = true;
+        environmentFile = config.sops.templates."cloudflare-dns.env".path;
+      };
     };
 
     # Open firewall ports for HTTP/HTTPS

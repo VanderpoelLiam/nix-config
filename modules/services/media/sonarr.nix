@@ -31,6 +31,7 @@ in
     services.${service}.dataDir = lib.mkDefault "/var/lib/${service}";
 
     services.caddy.virtualHosts."${cfg.url}" = {
+      useACMEHost = userConfig.global.baseDomain;
       extraConfig = ''
         reverse_proxy http://localhost:8989
       '';

@@ -29,6 +29,7 @@ in
 
   config = lib.mkIf cfg.enable {
     services.caddy.virtualHosts."${cfg.url}" = {
+      useACMEHost = userConfig.global.baseDomain;
       extraConfig = ''
         reverse_proxy http://localhost:5055
       '';
