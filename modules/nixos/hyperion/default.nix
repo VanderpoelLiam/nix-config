@@ -2,7 +2,6 @@
 {
   imports = [
     ./hardware.nix
-    ./services
   ];
 
   networking.hostName = "hyperion";
@@ -23,6 +22,20 @@
       pihole_password = { };
     };
   };
+
+  # Enable services
+  services.caddy.enable = true;
+  services.tailscale.enable = true;
+  services.pihole.enable = true;
+  services.homeassistant.enable = true;
+  services.glance.enable = true;
+  services.koifit.enable = true;
+  services.sonarr.enable = true;
+  services.radarr.enable = true;
+  services.prowlarr.enable = true;
+  services.jellyseerr.enable = true;
+  services.jellyfin.enable = true;
+  services.qbittorrent.enable = true;
 
   networking.nftables.enable = true;
   networking.firewall = {

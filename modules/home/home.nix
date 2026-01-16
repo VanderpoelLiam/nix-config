@@ -13,7 +13,6 @@
     bat
     curl
     fzf
-    git-lfs
     just
     less
     oh-my-zsh

@@ -5,6 +5,7 @@
     gitName = "Liam Vanderpoel";
     gitEmail = "vanderpoel.liam@gmail.com";
     timezone = "Europe/Zurich";
+    baseDomain = "vanderpoel.ch";
   };
 
   # Per-machine settings

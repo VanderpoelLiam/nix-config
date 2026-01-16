@@ -94,6 +94,7 @@
           sops-nix.nixosModules.sops
           ./disko/hyperion.nix
           ./modules/nixos/hyperion
+          ./modules/services
         ] ++ commonNixosModules;
       };
     };
