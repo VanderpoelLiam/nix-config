@@ -15,7 +15,7 @@
 
   sops = {
     defaultSopsFile = ../../../secrets/hyperion.yaml;
-    age.keyFile = "/var/lib/sops-nix/key.txt";
+    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   };
 
   # Enable services

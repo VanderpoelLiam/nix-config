@@ -27,9 +27,5 @@ in
         environmentFile = config.sops.templates."cloudflare-dns.env".path;
       };
     };
-
-    # Open firewall ports for HTTP/HTTPS
-    networking.firewall.allowedTCPPorts = [ 80 443 ];
-    networking.firewall.allowedUDPPorts = [ 443 ]; # For HTTP/3
   };
 }
