@@ -35,6 +35,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # Declare the Pi-hole password secret
+    sops.secrets.pihole_password = {};
+
     systemd.tmpfiles.rules = [
       "d ${cfg.configDir} 0755 root root - -"
       "d ${cfg.configDir}/pihole 0755 root root - -"

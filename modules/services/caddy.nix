@@ -4,6 +4,14 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
+    # Declare the Cloudflare API token secret
+    sops.secrets.cloudflare_api_token = {};
+
+    # Create environment file with proper format for ACME
+    sops.templates."cloudflare-dns.env".content = ''
+      CLOUDFLARE_DNS_API_TOKEN=${config.sops.placeholder.cloudflare_api_token}
+    '';
+
     # Configure ACME for wildcard certificate using Cloudflare DNS-01 challenge
     security.acme = {
       acceptTerms = true;

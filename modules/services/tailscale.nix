@@ -4,7 +4,10 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    # Enable exit node 
-    services.tailscale.useRoutingFeatures = "server";
+    networking.firewall.trustedInterfaces = [ "tailscale0" ];
+
+    services.tailscale = {
+      useRoutingFeatures = "server";
+    };
   };
 }

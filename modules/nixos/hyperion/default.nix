@@ -2,7 +2,6 @@
 {
   imports = [
     ./hardware.nix
-    ./secrets
   ];
 
   networking.hostName = "hyperion";
@@ -36,8 +35,6 @@
   networking.nftables.enable = true;
   networking.firewall = {
     enable = true;
-
-    trustedInterfaces = [ "tailscale0" ];
     checkReversePath = "loose";
     allowedUDPPorts = [ config.services.tailscale.port ];
 
