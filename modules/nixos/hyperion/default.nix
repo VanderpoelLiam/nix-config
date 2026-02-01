@@ -19,6 +19,7 @@
   };
 
   # Enable services
+  services.openssh.enable = true;
   services.caddy.enable = true;
   services.tailscale.enable = true;
   services.pihole.enable = true;
