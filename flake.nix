@@ -25,10 +25,6 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = { ... }@inputs:
@@ -89,13 +85,6 @@
           ./modules/nixos/hyperion
           ./modules/services
         ] ++ commonNixosModules;
-      };
-
-      # Installer ISO
-      packages.x86_64-linux.installer = nixos-generators.nixosGenerate {
-        system = "x86_64-linux";
-        modules = [ ./modules/installer ];
-        format = "install-iso";
       };
     };
 }
