@@ -14,13 +14,8 @@
     "Liams-MacBook-Pro" = {
       system = "aarch64-darwin";
     };
-    "trantor" = {
-      system = "x86_64-linux";
-      disk = "/dev/sda";
-    };
     "hyperion" = {
       system = "x86_64-linux";
-      disk = "/dev/sda";
     };
   };
 }

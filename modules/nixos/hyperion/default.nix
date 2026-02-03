@@ -2,6 +2,7 @@
 {
   imports = [
     ./hardware.nix
+    ./disko.nix
   ];
 
   networking.hostName = "hyperion";
@@ -14,7 +15,7 @@
   };
 
   sops = {
-    defaultSopsFile = ../../../secrets/hyperion.yaml;
+    defaultSopsFile = ./secrets.yaml;
     age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   };
 

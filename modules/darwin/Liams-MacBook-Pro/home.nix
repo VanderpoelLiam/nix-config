@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    ../../home
+    ../../shared/home.nix
     ./apps
   ];
 }

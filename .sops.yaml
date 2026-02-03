@@ -2,7 +2,7 @@ keys:
   - &admin_liam age143cr0t48ufnsmz97vhys7rl36qghdunk3d6avgtqax73flqsny8qemlw8t
 
 creation_rules:
-  - path_regex: secrets/hyperion\.yaml$
+  - path_regex: modules/nixos/hyperion/secrets\.yaml$
     key_groups:
       - age:
           - *admin_liam

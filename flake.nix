@@ -25,6 +25,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { ... }@inputs:
@@ -76,26 +80,22 @@
         ];
       };
 
-      nixosConfigurations.trantor = nixpkgs.lib.nixosSystem {
-        system = userConfig.machines.trantor.system;
-        specialArgs = { inherit inputs userConfig; };
-        modules = [
-          disko.nixosModules.disko
-          ./disko/trantor.nix
-          ./modules/nixos/trantor
-        ] ++ commonNixosModules;
-      };
-
       nixosConfigurations.hyperion = nixpkgs.lib.nixosSystem {
         system = userConfig.machines.hyperion.system;
         specialArgs = { inherit inputs userConfig; };
         modules = [
           disko.nixosModules.disko
           sops-nix.nixosModules.sops
-          ./disko/hyperion.nix
           ./modules/nixos/hyperion
           ./modules/services
         ] ++ commonNixosModules;
+      };
+
+      # Installer ISO
+      packages.x86_64-linux.installer = nixos-generators.nixosGenerate {
+        system = "x86_64-linux";
+        modules = [ ./modules/installer ];
+        format = "install-iso";
       };
     };
 }
