@@ -16,7 +16,7 @@ check-nixos machine:
     nix build .#nixosConfigurations.{{machine}}.config.system.build.toplevel --dry-run
 
 deploy $host:
-	nixos-rebuild-ng switch --flake github:VanderpoelLiam/nix-config#{{host}} --target-host {{host}} --build-host {{host}} --no-reexec --sudo
+	ssh {{host}} "sudo nixos-rebuild switch --flake github:VanderpoelLiam/nix-config#{{host}}"
 
 gc:
     nix-collect-garbage --delete-older-than 10d
