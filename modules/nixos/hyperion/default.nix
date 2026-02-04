@@ -7,6 +7,8 @@
 
   networking.hostName = "hyperion";
 
+  security.sudo.wheelNeedsPassword = false;
+
   # Enable Podman for OCI containers
   virtualisation.podman = {
     enable = true;
@@ -22,7 +24,7 @@
   # Enable services
   services.openssh.enable = true;
   # services.caddy.enable = true;
-  # services.tailscale.enable = true;
+  services.tailscale.enable = true;
   # services.pihole.enable = true;
   # services.homeassistant.enable = true;
   # services.glance.enable = true;

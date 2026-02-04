@@ -15,11 +15,8 @@ check-darwin:
 check-nixos machine:
     nix build .#nixosConfigurations.{{machine}}.config.system.build.toplevel --dry-run
 
-deploy $host: (copy host)
-	nixos-rebuild-ng switch --flake .#{{host}} --target-host {{host}} --build-host {{host}} --no-reexec --sudo
-
-copy $host:
-	rsync -ax --delete --rsync-path="sudo rsync" ./ {{host}}:/etc/nixos/
+deploy $host:
+	nixos-rebuild-ng switch --flake github:VanderpoelLiam/nix-config#{{host}} --target-host {{host}} --build-host {{host}} --no-reexec --sudo
 
 gc:
     nix-collect-garbage --delete-older-than 10d
