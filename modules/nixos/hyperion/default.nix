@@ -9,6 +9,8 @@
 
   security.sudo.wheelNeedsPassword = false;
 
+  environment.systemPackages = [ pkgs.ghostty.terminfo ];
+
   # Enable Podman for OCI containers
   virtualisation.podman = {
     enable = true;
