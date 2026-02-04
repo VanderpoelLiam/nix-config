@@ -30,7 +30,6 @@
     casks = [
       "cursor"
       "firefox"
-      "ghostty"
       "font-atkinson-hyperlegible-mono"
       "rectangle" 
       "chatgpt"

@@ -92,7 +92,39 @@ nix-shell -p sops --run "EDITOR=vim sops secrets/<server>.yaml"
 
 ## NixOS Server Setup
 
-TODO: IN PROGRESS
+Download the [Minimal Nix ISO image](https://nixos.org/download/#nixos-iso) and flash it to a USB by following the [Creating bootable USB flash drive from a Terminal on macOS instructions](https://nixos.org/manual/nixos/stable/#sec-booting-from-usb-macos). Plug it into the server and boot from the USB, then select: NixOS Installer LTS.
+
+Boot from USB:
+```sh
+passwd
+ip addr
+```
+
+SSH in from Mac:
+```sh
+ssh nixos@<ip-address>
+```
+
+Partition and install:
+```sh
+sudo nix --experimental-features 'nix-command flakes' run github:nix-community/disko -- --mode destroy,format,mount --flake github:VanderpoelLiam/nix-config#<server>
+sudo nixos-install --flake github:VanderpoelLiam/nix-config#<server> --no-root-password
+```
+
+Set password and reboot:
+```sh
+sudo nixos-enter --root /mnt
+passwd liam
+exit
+sudo reboot
+```
+
+SSH into the installed system and configure Tailscale:
+```sh
+ssh liam@<server>
+sudo tailscale up --advertise-exit-node
+```
+
 <!-- Build the installer ISO (does not work on Mac):
 ```sh
 just build-iso
@@ -131,6 +163,20 @@ SSH into the installed system and configure Tailscale with a [single-use auth ke
 ```sh
 ssh liam@<ip-address>
 sudo tailscale up --advertise-exit-node --auth-key=<auth-key>
+```
+
+Once hyperion is running, build the custom installer ISO for future server installs:
+
+```sh
+ssh liam@hyperion
+git clone https://github.com/VanderpoelLiam/nix-config.git /tmp/nix-config
+cd /tmp/nix-config
+nix-shell -p nixos-generators --run 'nixos-generate -c modules/installer/default.nix -f install-iso'
+```
+
+Copy ISO to Mac:
+```sh
+scp liam@hyperion:/tmp/nix-config/result/nixos.iso ~/Downloads/
 ```
 
 Get the server's age key and add it to `.sops.yaml`:
