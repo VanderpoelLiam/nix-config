@@ -11,17 +11,6 @@
 
   environment.systemPackages = [ pkgs.ghostty.terminfo ];
 
-  # Tailscale UDP GRO optimization
-  services.networkd-dispatcher = {
-    enable = true;
-    rules."50-tailscale" = {
-      onState = [ "routable" ];
-      script = ''
-        ${pkgs.ethtool}/bin/ethtool -K enp1s0 rx-udp-gro-forwarding on rx-gro-list off
-      '';
-    };
-  };
-
   # Enable Podman for OCI containers
   virtualisation.podman = {
     enable = true;
