@@ -28,12 +28,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.${service}.webuiPort = lib.mkDefault 8080;
+    services.${service}.webuiPort = lib.mkDefault 8090;
 
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = userConfig.global.baseDomain;
       extraConfig = ''
-        reverse_proxy http://localhost:8080
+        reverse_proxy http://localhost:8090
       '';
     };
   };
