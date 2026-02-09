@@ -34,8 +34,14 @@
     age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   };
 
-  # Enable services
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+    };
+  };
+
   # services.caddy.enable = true;
   services.tailscale.enable = true;
   # services.pihole.enable = true;
@@ -61,5 +67,12 @@
     '';
   };
 
+  system.autoUpgrade = {
+    enable = true;
+    flake = "github:VanderpoelLiam/nix-config#hyperion";
+    allowReboot = true;
+    dates = "04:00";
+  };
+  
   system.stateVersion = "25.11";
 }
