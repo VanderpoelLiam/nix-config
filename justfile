@@ -10,7 +10,7 @@ update:
     nix flake update
 
 deploy $host:
-	ssh {{host}} "sudo nixos-rebuild switch --flake github:VanderpoelLiam/nix-config#{{host}}"
+	ssh {{host}} "sudo nixos-rebuild switch --refresh --flake github:VanderpoelLiam/nix-config#{{host}}"
 
 gc:
     nix-collect-garbage --delete-older-than 10d
