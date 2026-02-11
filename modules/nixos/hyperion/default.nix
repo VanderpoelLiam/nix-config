@@ -51,7 +51,7 @@
     allowedUDPPorts = [ config.services.tailscale.port ];
 
     extraInputRules = ''
-      ip saddr 192.168.1.0/24 tcp dport { 22, 53, 80, 443 } accept
+      ip saddr 192.168.1.0/24 tcp dport { 22, 53, 80, 443, 8096 } accept
       ip saddr 192.168.1.0/24 udp dport 53 accept
     '';
   };
