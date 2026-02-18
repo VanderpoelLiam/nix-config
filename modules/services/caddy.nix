@@ -15,7 +15,7 @@ in
     # Configure ACME for wildcard certificate using Cloudflare DNS-01 challenge
     security.acme = {
       acceptTerms = true;
-      defaults.email = "acme@localhost";
+      defaults.email = userConfig.global.gitEmail;
 
       certs."${userConfig.global.baseDomain}" = {
         group = config.services.caddy.group;
