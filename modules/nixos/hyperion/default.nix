@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, userConfig, ... }:
 {
   imports = [
     ./hardware.nix
@@ -31,7 +31,31 @@
     };
   };
 
-  # services.caddy.enable = true;
+  services.caddy.enable = true;
+
+  # Temporary: proxy to ganymede until services are migrated
+  # -------------------------------------------------------------------
+  services.caddy.virtualHosts."pihole.internal.${userConfig.global.baseDomain}" = {
+    useACMEHost = userConfig.global.baseDomain;
+    extraConfig = ''
+      redir / /admin
+      reverse_proxy http://ganymede:8081
+    '';
+  };
+  services.caddy.virtualHosts."ha.internal.${userConfig.global.baseDomain}" = {
+    useACMEHost = userConfig.global.baseDomain;
+    extraConfig = ''
+      reverse_proxy http://ganymede:8123
+    '';
+  };
+  services.caddy.virtualHosts."koifit.internal.${userConfig.global.baseDomain}" = {
+    useACMEHost = userConfig.global.baseDomain;
+    extraConfig = ''
+      reverse_proxy http://ganymede:8000
+    '';
+  };
+  # -------------------------------------------------------------------
+
   services.tailscale.enable = true;
   # services.pihole.enable = true;
   # services.homeassistant.enable = true;
