@@ -61,9 +61,20 @@ nix-shell -p ssh-to-age --run "ssh-to-age -private-key -i ~/.ssh/id_ed25519" > "
 nix-shell -p ssh-to-age --run "ssh-to-age < ~/.ssh/id_ed25519.pub"
 ```
 
-Add the age public key to `.sops.yaml` as `admin_liam`.
+Add the age public key to `.sops.yaml` as `admin_liam`:
+```yaml
+keys:
+  - &admin_liam age1...
 
-### Secrets First-time setup 
+creation_rules:
+  - path_regex: modules/nixos/<server>/secrets\.yaml$
+    key_groups:
+      - age:
+          - *admin_liam
+[...]
+```
+
+### Secrets first-time setup 
 
 **Only perform these steps when creating the server's secrets file `secrets/<server>.yaml` for the first time. Run all commands on the MacOS client machine.**
 
@@ -125,6 +136,38 @@ ssh liam@<server>
 sudo tailscale up --advertise-exit-node
 ```
 
+Allow the server to be and exit node and disable key expiry in the [Tailscale Admin Console](https://login.tailscale.com/admin/machines)
+
+Lastly we add the server's age key to `.sops.yaml` so the server can then decrypt and use the secrets.
+
+Get the server's age key:
+```sh
+nix-shell -p ssh-to-age --run "ssh-keyscan <server> | ssh-to-age"
+```
+
+Then add it to `.sops.yaml`:
+```yaml
+keys:
+  - &admin_liam age1...
+  - &<server>_server age1...    # <-- add this
+
+creation_rules:
+  - path_regex: modules/nixos/<server>/secrets\.yaml$
+    key_groups:
+      - age:
+          - *admin_liam
+          - *<server>_server    # <-- add this
+```
+
+Re-encrypt secrets and deploy:
+```sh
+nix-shell -p sops --run "sops updatekeys modules/nixos/<server>/secrets.yaml"
+just deploy <server>
+```
+
+<!-- nix-shell -p sops --run "sops updatekeys modules/nixos/hyperion/secrets.yaml"
+just deploy hyperion -->
+
 <!-- Build the installer ISO (does not work on Mac):
 ```sh
 just build-iso
@@ -177,15 +220,4 @@ nix-shell -p nixos-generators --run 'nixos-generate -c modules/installer/default
 Copy ISO to Mac:
 ```sh
 scp liam@hyperion:/tmp/nix-config/result/nixos.iso ~/Downloads/
-```
-
-Get the server's age key and add it to `.sops.yaml`:
-```sh
-nix-shell -p ssh-to-age --run "ssh-keyscan hyperion | ssh-to-age"
-```
-
-Re-encrypt secrets and deploy:
-```sh
-nix-shell -p sops --run "sops updatekeys modules/nixos/hyperion/secrets.yaml"
-just deploy hyperion
 ``` -->
