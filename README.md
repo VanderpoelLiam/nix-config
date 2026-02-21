@@ -76,13 +76,13 @@ creation_rules:
 
 ### Secrets first-time setup 
 
-**Only perform these steps when creating the server's secrets file `secrets/<server>.yaml` for the first time. Run all commands on the MacOS client machine.**
+**Only perform these steps when creating the server's secrets file `modules/nixos/<server>/secrets.yaml` for the first time. Run all commands on the MacOS client machine.**
 
 We use [sops-nix](https://github.com/Mic92/sops-nix) for secret management. Initially, secrets are encrypted only with the Mac's age key. After a server is setup for the first time, we add the server's age key to `.sops.yaml` so the server can then decrypt and use the secrets.
 
 Create the secrets file:
 ```sh
-touch secrets/<server>.yaml
+touch modules/nixos/<server>/secrets.yaml
 ```
 
 Add your secrets, for example:
@@ -93,12 +93,12 @@ pihole_password: your-pihole-admin-password
 
 Encrypt the file in-place:
 ```sh
-nix-shell -p sops --run "sops -e -i secrets/<server>.yaml"
+nix-shell -p sops --run "sops -e -i modules/nixos/<server>/secrets.yaml"
 ```
 
 Secrets can be viewed and edited with:
 ```sh
-nix-shell -p sops --run "EDITOR=vim sops secrets/<server>.yaml"
+nix-shell -p sops --run "EDITOR=vim sops modules/nixos/<server>/secrets.yaml"
 ```
 
 ## NixOS Server Setup
