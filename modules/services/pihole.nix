@@ -35,9 +35,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # Declare the Pi-hole password secret
-    sops.secrets.pihole_password = {};
-
     systemd.tmpfiles.rules = [
       "d ${cfg.configDir} 0755 root root - -"
       "d ${cfg.configDir}/pihole 0755 root root - -"
@@ -67,12 +64,11 @@ in
           TZ = userConfig.global.timezone;
           FTLCONF_dns_listeningMode = "all";
           FTLCONF_webserver_port = "8081";
-          WEBPASSWORD_FILE = "/run/secrets/pihole_password";
+          FTLCONF_webserver_api_password = "";
         };
         volumes = [
           "${cfg.configDir}/pihole:/etc/pihole"
           "${cfg.configDir}/dnsmasq.d:/etc/dnsmasq.d"
-          "${config.sops.secrets.pihole_password.path}:/run/secrets/pihole_password:ro"
         ];
       };
     };
