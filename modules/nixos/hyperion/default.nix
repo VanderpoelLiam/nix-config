@@ -35,13 +35,6 @@
 
   # Temporary: proxy to ganymede until services are migrated
   # -------------------------------------------------------------------
-  services.caddy.virtualHosts."pihole.internal.${userConfig.global.baseDomain}" = {
-    useACMEHost = userConfig.global.baseDomain;
-    extraConfig = ''
-      redir / /admin
-      reverse_proxy http://ganymede:8081
-    '';
-  };
   services.caddy.virtualHosts."ha.internal.${userConfig.global.baseDomain}" = {
     useACMEHost = userConfig.global.baseDomain;
     extraConfig = ''
@@ -57,7 +50,7 @@
   # -------------------------------------------------------------------
 
   services.tailscale.enable = true;
-  # services.pihole.enable = true;
+  services.pihole.enable = true;
   # services.homeassistant.enable = true;
   # services.glance.enable = true;
   # services.koifit.enable = true;
