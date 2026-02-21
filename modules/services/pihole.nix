@@ -61,15 +61,12 @@ in
           "--pull=newer"
           "--cap-add=CAP_SYS_TIME"
           "--cap-add=CAP_SYS_NICE"
-        ];
-        ports = [
-          "53:53/tcp"
-          "53:53/udp"
-          "127.0.0.1:8081:80/tcp"
+          "--network=host"
         ];
         environment = {
           TZ = userConfig.global.timezone;
           FTLCONF_dns_listeningMode = "all";
+          FTLCONF_webserver_port = "8081";
           FTLCONF_webserver_api_password_FILE = "/run/secrets/pihole_password";
         };
         volumes = [
