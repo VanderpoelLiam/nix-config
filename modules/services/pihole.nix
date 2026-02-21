@@ -67,7 +67,7 @@ in
           TZ = userConfig.global.timezone;
           FTLCONF_dns_listeningMode = "all";
           FTLCONF_webserver_port = "8081";
-          FTLCONF_webserver_api_password_FILE = "/run/secrets/pihole_password";
+          WEBPASSWORD_FILE = "/run/secrets/pihole_password";
         };
         volumes = [
           "${cfg.configDir}/pihole:/etc/pihole"
