@@ -6,7 +6,7 @@
   home.sessionVariables = {
     PAGER = "less";
     CLICLOLOR = 1;
-    EDITOR = "cursor";
+    EDITOR = "vim";
   };
 
   home.packages = with pkgs; [

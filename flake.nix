@@ -45,9 +45,21 @@
       commonNixosModules = [
         ./modules/shared/nix-settings.nix
         ./modules/users/liam
-        ({ config, pkgs, ... }: {
+        ({ pkgs, ... }: {
           nixpkgs.overlays = [ unstableOverlay ];
         })
+        home-manager.nixosModules.home-manager
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            extraSpecialArgs = { inherit userConfig; };
+            users.${username}.imports = [
+              ./modules/shared/home.nix
+              ./modules/shared/apps
+            ];
+          };
+        }
       ];
     in {
       darwinConfigurations."Liams-MacBook-Pro" = darwin.lib.darwinSystem {
