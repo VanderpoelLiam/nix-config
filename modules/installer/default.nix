@@ -5,8 +5,8 @@ let
 in
 {
   imports = [
-    "${pkgs.path}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-    "${pkgs.path}/nixos/modules/installer/cd-dvd/channel.nix"
+    <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix>
+    <nixpkgs/nixos/modules/installer/cd-dvd/channel.nix>
   ];
 
   # Use beta cache for faster downloads
