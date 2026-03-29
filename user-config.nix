@@ -17,5 +17,8 @@
     "hyperion" = {
       system = "x86_64-linux";
     };
+    "trantor" = {
+      system = "x86_64-linux";
+    };
   };
 }

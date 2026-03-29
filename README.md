@@ -8,6 +8,7 @@ Nix configuration for macOS and NixOS machines.
 |------|------|-------------|
 | Liams-MacBook-Pro | Darwin | Personal MacBook |
 | hyperion | NixOS | Home server |
+| trantor | NixOS | Media server |
 
 ## Structure
 
@@ -19,7 +20,8 @@ nix-config/
 │   ├── darwin/
 │   │   └── Liams-MacBook-Pro/
 │   ├── nixos/
-│   │   └── hyperion/
+│   │   ├── hyperion/
+│   │   └── trantor/
 │   ├── services/
 │   ├── users/
 │   └── shared/

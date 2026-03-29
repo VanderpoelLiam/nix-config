@@ -98,5 +98,16 @@
           ./modules/services
         ] ++ commonNixosModules;
       };
+
+      nixosConfigurations.trantor = nixpkgs.lib.nixosSystem {
+        system = userConfig.machines.trantor.system;
+        specialArgs = { inherit inputs userConfig; };
+        modules = [
+          disko.nixosModules.disko
+          sops-nix.nixosModules.sops
+          ./modules/nixos/trantor
+          ./modules/services
+        ] ++ commonNixosModules;
+      };
     };
 }
