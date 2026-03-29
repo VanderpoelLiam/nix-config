@@ -20,7 +20,6 @@ nix-config/
 │   │   └── Liams-MacBook-Pro/
 │   ├── nixos/
 │   │   └── hyperion/
-│   ├── installer/
 │   ├── services/
 │   ├── users/
 │   └── shared/
@@ -103,12 +102,15 @@ nix-shell -p sops --run "EDITOR=vim sops modules/nixos/<server>/secrets.yaml"
 
 ## NixOS Server Setup
 
-Download the [Minimal Nix ISO image](https://nixos.org/download/#nixos-iso) and flash it to a USB by following the [Creating bootable USB flash drive from a Terminal on macOS instructions](https://nixos.org/manual/nixos/stable/#sec-booting-from-usb-macos). Plug it into the server and boot from the USB, then select: NixOS Installer LTS.
+The first step is to create a bootable USB drive running NixOS.
 
-Boot from USB:
+### Create a bootable USB
+
+Use the official [Minimal NixOS ISO](https://nixos.org/download/#nixos-iso). Flash it to a USB with [Ventoy](https://www.ventoy.net/), then boot from the USB and run:
+
 ```sh
-passwd
-ip addr
+passwd  # Set a temporary password to ssh in for the install
+ip addr # Note IP address after inet (e.g 192.168.1.87)
 ```
 
 SSH in from Mac:
@@ -116,53 +118,22 @@ SSH in from Mac:
 ssh nixos@<ip-address>
 ```
 
-Partition and install:
-```sh
-sudo nix --experimental-features 'nix-command flakes' run github:nix-community/disko -- --mode destroy,format,mount --flake github:VanderpoelLiam/nix-config#<server>
-sudo nixos-install --flake github:VanderpoelLiam/nix-config#<server> --no-root-password
-```
+### Install the flake
 
-Set password and reboot:
+Partition, install, set password, and reboot:
 ```sh
-sudo nixos-enter --root /mnt
-passwd liam
+sudo nix run github:nix-community/disko -- --mode destroy,format,mount --flake github:VanderpoelLiam/nix-config#<server>
+sudo nixos-install --flake github:VanderpoelLiam/nix-config#<server> --no-root-password
+nixos-enter --root /mnt
+# passwd liam # Maybe not needed lets see
 exit
 sudo reboot
 ```
 
 SSH into the installed system and configure Tailscale:
 ```sh
-ssh liam@<server>
+ssh liam@<ip-address>
 sudo tailscale up --advertise-exit-node
-```
-
-Allow the server to be and exit node and disable key expiry in the [Tailscale Admin Console](https://login.tailscale.com/admin/machines)
-
-Lastly we add the server's age key to `.sops.yaml` so the server can then decrypt and use the secrets.
-
-Get the server's age key:
-```sh
-nix-shell -p ssh-to-age --run "ssh-keyscan <server> | ssh-to-age"
-```
-
-Then add it to `.sops.yaml`:
-```yaml
-keys:
-  - &admin_liam age1...
-  - &<server>_server age1...    # <-- add this
-
-creation_rules:
-  - path_regex: modules/nixos/<server>/secrets\.yaml$
-    key_groups:
-      - age:
-          - *admin_liam
-          - *<server>_server    # <-- add this
-```
-
-Re-encrypt secrets and deploy:
-```sh
-nix-shell -p sops --run "sops updatekeys modules/nixos/<server>/secrets.yaml"
-just deploy <server>
 ```
 
 <!-- nix-shell -p sops --run "sops updatekeys modules/nixos/hyperion/secrets.yaml"
