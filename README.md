@@ -108,7 +108,7 @@ The first step is to create a bootable USB drive running NixOS.
 
 ### Create a bootable USB
 
-Use the official [Minimal NixOS ISO](https://nixos.org/download/#nixos-iso). Flash it to a USB with [Ventoy](https://www.ventoy.net/), then boot from the USB and run:
+Create a [bootable USB for netboot.xyz](https://netboot.xyz/docs/booting/usb/) and boot from NixOS. Or if that doesnt work, directly flash [NixOS Minimal ISO image](https://nixos.org/download/#nixos-iso) to a USB. Then boot from the USB and run:
 
 ```sh
 passwd  # Set a temporary password to ssh in for the install
@@ -124,73 +124,52 @@ ssh nixos@<ip-address>
 
 Partition, install, set password, and reboot:
 ```sh
-sudo nix run github:nix-community/disko -- --mode destroy,format,mount --flake github:VanderpoelLiam/nix-config#<server>
+sudo nix --experimental-features 'nix-command flakes' run github:nix-community/disko -- --mode destroy,format,mount --flake github:VanderpoelLiam/nix-config#<server>
 sudo nixos-install --flake github:VanderpoelLiam/nix-config#<server> --no-root-password
-nixos-enter --root /mnt
-# passwd liam # Maybe not needed lets see
-exit
 sudo reboot
 ```
 
 SSH into the installed system and configure Tailscale:
 ```sh
+ssh-keygen -R <ip-address> # Remove the stale host key from the ISO boot
 ssh liam@<ip-address>
-sudo tailscale up --advertise-exit-node
+sudo tailscale up --advertise-exit-node 
 ```
 
-<!-- nix-shell -p sops --run "sops updatekeys modules/nixos/hyperion/secrets.yaml"
-just deploy hyperion -->
+I reccomend disabling key expiry in the Tailscale Admin console, and edit the ACL tags to tag the machine as a `server`. My ACL rules are setup such that I can only ssh into machines tagged as a server. I also setup [Tailscale SSH](https://tailscale.com/docs/features/tailscale-ssh) to access my servers from a web browser if I do not have access to my Macbook:
 
-<!-- Build the installer ISO (does not work on Mac):
 ```sh
-just build-iso
+sudo tailscale set --ssh
 ```
 
-Flash to USB:
+
+
+### Add Server Key to sops
+
+If the server uses secrets, Add the server's SSH host key to sops. This uses [ssh-to-age](https://github.com/Mic92/ssh-to-age) to convert the existing SSH host key 
+(no need to generate a separate age key).
+
+From Mac:
 ```sh
-# Find USB, e.g. if the usb is /dev/disk4 then replace diskN with disk4 below
-diskutil list                                    
-diskutil unmountDisk /dev/diskN
-sudo dd if=install-iso of=/dev/rdiskN bs=4M status=progress
-diskutil eject /dev/diskN
+nix-shell -p ssh-to-age --run "ssh-keyscan <server> | ssh-to-age"
 ```
 
-Boot server from USB and get the ip address of the server:
-```sh
-ip addr # Note IP address after inet (e.g 192.168.1.87)
+Add the output (starts with `age1...`) to `.sops.yaml`:
+```yaml
+keys:
+    - &admin_liam age1...            # Your Mac's key
+    - &server_<server> age1...       # Add server key here
+
+creation_rules:
+    - path_regex: secrets/<server>\.yaml$
+      key_groups:
+          - age:
+              - *admin_liam
+              - *server_<server>
 ```
 
-SSH in:
+Re-encrypt secrets and deploy:
 ```sh
-ssh liam@<ip-address>
+nix-shell -p sops --run "sops updatekeys secrets/<server>.yaml"
+just deploy <server>
 ```
-
-Partition, install, set password, and reboot:
-```sh
-sudo nix run github:nix-community/disko -- --mode destroy,format,mount --flake github:VanderpoelLiam/nix-config#hyperion
-sudo nixos-install --flake github:VanderpoelLiam/nix-config#hyperion --no-root-password
-nixos-enter --root /mnt
-passwd liam
-exit
-sudo reboot
-```
-
-SSH into the installed system and configure Tailscale with a [single-use auth key](https://login.tailscale.com/admin/settings/keys):
-```sh
-ssh liam@<ip-address>
-sudo tailscale up --advertise-exit-node --auth-key=<auth-key>
-```
-
-Once hyperion is running, build the custom installer ISO for future server installs:
-
-```sh
-ssh liam@hyperion
-git clone https://github.com/VanderpoelLiam/nix-config.git /tmp/nix-config
-cd /tmp/nix-config
-nix-shell -p nixos-generators --run 'nixos-generate -c modules/installer/default.nix -f install-iso'
-```
-
-Copy ISO to Mac:
-```sh
-scp liam@hyperion:/tmp/nix-config/result/nixos.iso ~/Downloads/
-``` -->
