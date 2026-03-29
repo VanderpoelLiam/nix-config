@@ -2,8 +2,7 @@
   description = "Nix Configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     darwin = {
       url = "github:LnL7/nix-darwin";
@@ -11,7 +10,7 @@
     };
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
     homebrew-core = { url = "github:homebrew/homebrew-core"; flake = false; };
@@ -33,21 +32,10 @@
       userConfig = import ./user-config.nix;
       username = userConfig.global.username;
 
-      # Shared overlay for accessing unstable packages
-      unstableOverlay = final: prev: {
-        unstable = import nixpkgs-unstable {
-          system = prev.system;
-          config.allowUnfree = true;
-        };
-      };
-
       # Common NixOS modules for all systems
       commonNixosModules = [
         ./modules/shared/nix-settings.nix
         ./modules/users/liam
-        ({ pkgs, ... }: {
-          nixpkgs.overlays = [ unstableOverlay ];
-        })
         home-manager.nixosModules.home-manager
         {
           home-manager = {

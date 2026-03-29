@@ -77,7 +77,7 @@
     enable = true;
     flake = "github:VanderpoelLiam/nix-config#hyperion";
     allowReboot = true;
-    dates = "04:00";
+    dates = "monthly";
   };
   
   system.stateVersion = "25.11";
