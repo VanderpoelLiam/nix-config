@@ -41,19 +41,13 @@
       reverse_proxy http://ganymede:8123
     '';
   };
-  services.caddy.virtualHosts."koifit.internal.${userConfig.global.baseDomain}" = {
-    useACMEHost = userConfig.global.baseDomain;
-    extraConfig = ''
-      reverse_proxy http://ganymede:8000
-    '';
-  };
   # -------------------------------------------------------------------
 
   services.tailscale.enable = true;
   services.pihole.enable = true;
   # services.homeassistant.enable = true;
   # services.glance.enable = true;
-  # services.koifit.enable = true;
+  services.koifit.enable = true;
   services.sonarr.enable = true;
   services.radarr.enable = true;
   services.prowlarr.enable = true;
