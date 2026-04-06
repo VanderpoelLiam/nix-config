@@ -51,7 +51,7 @@ in
       oci-containers.containers.${service} = {
         image = "ghcr.io/vanderpoelliam/koifit:latest";
         autoStart = true;
-        extraOptions = [ "--pull=newer" ];
+        extraOptions = [ "--pull=newer" "--network=slirp4netns" ];
         environment = {
           TZ = userConfig.global.timezone;
           DB_PATH = "/data/db.sqlite";
