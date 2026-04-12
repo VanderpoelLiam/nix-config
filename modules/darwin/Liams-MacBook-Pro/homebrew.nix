@@ -24,7 +24,6 @@
     masApps = {
       "WhatsApp" = 310633997;  
       "Home Assistant Companion" = 1099568401;
-      "Perplexity" = 6714467650;
       "Trello" = 1278508951;
     };
     casks = [
@@ -33,7 +32,6 @@
       "ghostty"
       "font-atkinson-hyperlegible-mono"
       "rectangle" 
-      "chatgpt"
       "calibre"
       "vlc"
       "spotify"
@@ -41,6 +39,7 @@
       "tailscale-app"
       "raycast"
       "claude-code"
+      "claude"
     ];
     taps = [];
     brews = [
