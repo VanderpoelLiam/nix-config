@@ -33,19 +33,9 @@
 
   services.caddy.enable = true;
 
-  # Temporary: proxy to ganymede until services are migrated
-  # -------------------------------------------------------------------
-  services.caddy.virtualHosts."ha.internal.${userConfig.global.baseDomain}" = {
-    useACMEHost = userConfig.global.baseDomain;
-    extraConfig = ''
-      reverse_proxy http://ganymede:8123
-    '';
-  };
-  # -------------------------------------------------------------------
-
   services.tailscale.enable = true;
   services.pihole.enable = true;
-  # services.homeassistant.enable = true;
+  services.homeassistant.enable = true;
   # services.glance.enable = true;
   services.koifit.enable = true;
   services.sonarr.enable = true;
