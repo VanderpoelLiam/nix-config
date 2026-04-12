@@ -58,7 +58,7 @@ in
         ];
         volumes = [
           "${cfg.configDir}:/config"
-          "/etc/localtime:/etc/localtime:ro"
+          "/etc/zoneinfo:/etc/localtime:ro"
           "/run/dbus:/run/dbus:ro"
         ];
         ports = [ "127.0.0.1:8123:8123" ];
