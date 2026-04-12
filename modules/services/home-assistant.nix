@@ -42,9 +42,7 @@ in
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = userConfig.global.baseDomain;
       extraConfig = ''
-        reverse_proxy http://localhost:8123 {
-          header_up Host {host}
-        }
+        reverse_proxy http://127.0.0.1:8123
       '';
     };
 
