@@ -105,6 +105,10 @@ in
       '';
     };
 
+    system.activationScripts.meteoswiss-forecast-regen = lib.stringAfter [ "users" ] ''
+      ${config.systemd.package}/bin/systemctl start --no-block meteoswiss-forecast.service || true
+    '';
+
     systemd.timers.meteoswiss-forecast = {
       description = "Periodically regenerate MeteoSwiss forecast";
       wantedBy = [ "timers.target" ];

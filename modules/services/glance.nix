@@ -36,7 +36,7 @@ let
 
   sbbDeparturesWidget = {
     type = "custom-api";
-    title = "Bus 31 → Hermetschloo";
+    title = "Bus 31";
     cache = "30s";
     url = "https://transport.opendata.ch/v1/stationboard?station=Waserstrasse&limit=20&transportations[]=bus";
     template = ''
@@ -110,9 +110,9 @@ let
     columns = [{
       size = "full";
       widgets = [
+        recyclingWidget
         sbbDeparturesWidget
         weatherWidget
-        recyclingWidget
       ];
     }];
   };
