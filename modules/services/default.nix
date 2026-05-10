@@ -6,6 +6,7 @@
     ./home-assistant.nix
     ./koifit.nix
     ./glance.nix
+    ./meteoswiss-forecast.nix
     ./media
   ];
 }

@@ -58,10 +58,14 @@ let
   };
 
   weatherWidget = {
-    type = "weather";
-    location = "Zürich, Switzerland";
-    units = "metric";
-    hour-format = "24h";
+    type = "html";
+    source = ''
+      <img src="/assets/weather.png" alt="Weather forecast" style="width:100%;display:block;border-radius:6px">
+      <p style="font-size:0.7em;opacity:0.55;margin:4px 0 0;text-align:right">
+        Data: <a href="https://www.meteoschweiz.admin.ch" target="_blank" rel="noopener">MeteoSwiss</a>
+        · Render: <a href="https://github.com/caco3/MeteoSwiss-Forecast" target="_blank" rel="noopener">caco3/MeteoSwiss-Forecast</a>
+      </p>
+    '';
   };
 
   recyclingWidget = {
@@ -195,6 +199,7 @@ in
       server = {
         host = "localhost";
         port = 8080;
+        assets-path = config.services.meteoswiss-forecast.dataDir;
       };
       document.head = ''<meta http-equiv="refresh" content="60">'';
       branding.hide-footer = true;
