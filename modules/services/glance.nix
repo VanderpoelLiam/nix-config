@@ -72,19 +72,30 @@ let
           cache = "6h";
           url = "https://openerz.metaodi.ch/api/calendar.json?zip=8053&types=cardboard&types=paper";
           template = ''
-            <ul class="list list-gap-10">
-            {{ $count := 0 }}
             {{ $today := now | startOfDay }}
+            {{ $karton := "" }}
+            {{ $papier := "" }}
             {{ range .JSON.Array "result" }}
-              {{ $d := .String "date" | parseTime "DateOnly" }}
-              {{ if and (lt $count 5) (not ($d.Before $today)) }}
-                <li class="flex justify-between items-center gap-10">
-                  <span class="size-h4">{{ if eq (.String "waste_type") "cardboard" }}Karton{{ else }}Papier{{ end }}</span>
-                  <span class="color-paragraph" {{ $d | toRelativeTime }}></span>
-                </li>
-                {{ $count = add $count 1 }}
+              {{ $date := .String "date" }}
+              {{ $d := $date | parseTime "DateOnly" }}
+              {{ if not ($d.Before $today) }}
+                {{ if and (eq (.String "waste_type") "cardboard") (eq $karton "") }}{{ $karton = $date }}{{ end }}
+                {{ if and (eq (.String "waste_type") "paper") (eq $papier "") }}{{ $papier = $date }}{{ end }}
               {{ end }}
             {{ end }}
+            <ul class="list list-gap-10">
+              {{ if ne $karton "" }}{{ $kt := $karton | parseTime "DateOnly" }}
+                <li class="flex justify-between items-center gap-10">
+                  <span class="size-h4">Karton</span>
+                  <span class="color-paragraph"><span {{ $kt | toRelativeTime }}></span> · {{ formatTime "Mon Jan 02" $kt }}</span>
+                </li>
+              {{ end }}
+              {{ if ne $papier "" }}{{ $pt := $papier | parseTime "DateOnly" }}
+                <li class="flex justify-between items-center gap-10">
+                  <span class="size-h4">Papier</span>
+                  <span class="color-paragraph"><span {{ $pt | toRelativeTime }}></span> · {{ formatTime "Mon Jan 02" $pt }}</span>
+                </li>
+              {{ end }}
             </ul>
           '';
         }
@@ -175,6 +186,8 @@ in
         host = "localhost";
         port = 8080;
       };
+      document.head = ''<meta http-equiv="refresh" content="60">'';
+      branding.hide-footer = true;
       pages = pages;
     };
 
