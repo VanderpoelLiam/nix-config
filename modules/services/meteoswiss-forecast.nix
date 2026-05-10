@@ -20,6 +20,7 @@ let
     substituteInPlace $out/meteoswissForecast.py \
       --replace 'os.path.dirname(os.path.realpath(__file__)) + "/symbols/"' '"${cfg.dataDir}/symbols/"' \
       --replace 'colorsDarkMode = {"background": "black"' 'colorsDarkMode = {"background": "${cfg.backgroundColor}"' \
+      --replace "rainAxis.plot([timestampLocal], [rainScaleMax* 0.97], 'v', color='green', markersize=10)" "rainAxis.axvline(x=timestampLocal, color='red', linewidth=1.5)" \
       --replace 'plt.xlim(data["timestamps"][0], data["timestamps"][-2] + (data["timestamps"][1] - data["timestamps"][0]))' 'plt.xlim(max(data["timestamps"][0], data["modelCalculationTimestamp"] + self.utcOffset * 3600 - 7200), data["modelCalculationTimestamp"] + self.utcOffset * 3600 + 86400)'
   '';
 in
@@ -51,11 +52,11 @@ in
     backgroundColor = lib.mkOption {
       type = lib.types.str;
       default = "#15151a";
-      description = "PNG background color, matched to the Glance default theme.";
+      description = "PNG background color, matched to the Glance default page background.";
     };
     locale = lib.mkOption {
       type = lib.types.str;
-      default = "de_CH.utf8";
+      default = "en_US.utf8";
     };
     darkMode = lib.mkOption {
       type = lib.types.bool;
