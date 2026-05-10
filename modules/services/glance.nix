@@ -46,8 +46,10 @@ let
       {{ range .JSON.Array "stationboard" }}
         {{ $t := .String "stop.departure" | parseTime "2006-01-02T15:04:05-0700" }}
         {{ if and (lt $count 3) (and ($t.After $cutoff) (and (eq (.String "number") "31") (eq (.String "to") "Zürich, Hermetschloo"))) }}
+          {{ $secs := sub $t.Unix now.Unix }}
+          {{ $mins := div (add $secs 59) 60 }}
           <li class="flex justify-between items-center gap-10">
-            <span class="size-h4 color-highlight" {{ $t | toRelativeTime }}></span>
+            <span class="size-h4 color-highlight">in {{ $mins }} min</span>
             <span class="color-paragraph">{{ formatTime "15:04" $t }}{{ if gt (.Int "stop.delay") 0 }} <span class="color-negative">+{{ .Int "stop.delay" }}'</span>{{ end }}</span>
           </li>
           {{ $count = add $count 1 }}
@@ -59,8 +61,8 @@ let
 
   weatherWidget = {
     type = "html";
-    title = "Weather";
     source = ''
+      <h2 class="uppercase" style="margin:0 0 10px">Weather</h2>
       <img src="/assets/weather.png" alt="Weather forecast" style="width:100%;display:block;border-radius:6px">
     '';
   };
