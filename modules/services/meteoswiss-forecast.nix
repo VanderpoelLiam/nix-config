@@ -19,7 +19,8 @@ let
     chmod -R u+w $out
     substituteInPlace $out/meteoswissForecast.py \
       --replace 'os.path.dirname(os.path.realpath(__file__)) + "/symbols/"' '"${cfg.dataDir}/symbols/"' \
-      --replace "rainAxis.plot([timestampLocal], [rainScaleMax* 0.97], 'v', color='green', markersize=10)" "pass"
+      --replace 'colorsDarkMode = {"background": "black"' 'colorsDarkMode = {"background": "${cfg.backgroundColor}"' \
+      --replace 'plt.xlim(data["timestamps"][0], data["timestamps"][-2] + (data["timestamps"][1] - data["timestamps"][0]))' 'plt.xlim(max(data["timestamps"][0], data["modelCalculationTimestamp"] + self.utcOffset * 3600 - 7200), data["modelCalculationTimestamp"] + self.utcOffset * 3600 + 86400)'
   '';
 in
 {
@@ -33,10 +34,10 @@ in
       type = lib.types.str;
       default = "/var/lib/meteoswiss-forecast";
     };
-    interval = lib.mkOption {
+    onCalendar = lib.mkOption {
       type = lib.types.str;
-      default = "30min";
-      description = "How often to regenerate the forecast (systemd OnUnitActiveSec).";
+      default = "*:00,30:00";
+      description = "Systemd OnCalendar expression for regeneration cadence.";
     };
     width = lib.mkOption {
       type = lib.types.int;
@@ -44,7 +45,13 @@ in
     };
     daysToShow = lib.mkOption {
       type = lib.types.int;
-      default = 1;
+      default = 2;
+      description = "Days of forecast data to fetch. Needs to be >=2 for a 24h-from-now window.";
+    };
+    backgroundColor = lib.mkOption {
+      type = lib.types.str;
+      default = "#15151a";
+      description = "PNG background color, matched to the Glance default theme.";
     };
     locale = lib.mkOption {
       type = lib.types.str;
@@ -103,7 +110,7 @@ in
       wantedBy = [ "timers.target" ];
       timerConfig = {
         OnBootSec = "1min";
-        OnUnitActiveSec = cfg.interval;
+        OnCalendar = cfg.onCalendar;
         Unit = "meteoswiss-forecast.service";
       };
     };
