@@ -36,7 +36,7 @@
   services.tailscale.enable = true;
   services.pihole.enable = true;
   services.homeassistant.enable = true;
-  # services.glance.enable = true;
+  services.glance.enable = true;
   services.koifit.enable = true;
   services.sonarr.enable = true;
   services.radarr.enable = true;
