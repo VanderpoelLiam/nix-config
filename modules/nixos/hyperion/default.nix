@@ -6,6 +6,7 @@
   ];
 
   networking.hostName = "hyperion";
+  time.timeZone = "Europe/Zurich";
 
   security.sudo.wheelNeedsPassword = false;
 

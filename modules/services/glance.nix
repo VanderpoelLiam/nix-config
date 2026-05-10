@@ -34,71 +34,81 @@ let
     (makeServiceLink "koifit")
   ];
 
+  sbbDeparturesWidget = {
+    type = "custom-api";
+    title = "Bus 31 → Hermetschloo";
+    cache = "30s";
+    url = "https://transport.opendata.ch/v1/stationboard?station=Waserstrasse&limit=20&transportations[]=bus";
+    template = ''
+      {{ $cutoff := offsetNow "2m" }}
+      {{ $count := 0 }}
+      <ul class="list list-gap-10">
+      {{ range .JSON.Array "stationboard" }}
+        {{ $t := .String "stop.departure" | parseTime "2006-01-02T15:04:05-0700" }}
+        {{ if and (lt $count 3) (and ($t.After $cutoff) (and (eq (.String "number") "31") (eq (.String "to") "Zürich, Hermetschloo"))) }}
+          <li class="flex justify-between items-center gap-10">
+            <span class="size-h4 color-highlight" {{ $t | toRelativeTime }}></span>
+            <span class="color-paragraph">{{ formatTime "15:04" $t }}{{ if gt (.Int "stop.delay") 0 }} <span class="color-negative">+{{ .Int "stop.delay" }}'</span>{{ end }}</span>
+          </li>
+          {{ $count = add $count 1 }}
+        {{ end }}
+      {{ end }}
+      </ul>
+    '';
+  };
+
+  weatherWidget = {
+    type = "weather";
+    location = "Zürich, Switzerland";
+    units = "metric";
+    hour-format = "24h";
+  };
+
+  recyclingWidget = {
+    type = "custom-api";
+    title = "Recycling";
+    cache = "6h";
+    url = "https://openerz.metaodi.ch/api/calendar.json?zip=8053&types=cardboard&types=paper";
+    template = ''
+      {{ $tomorrow := offsetNow "24h" | formatTime "DateOnly" }}
+      {{ $karton := "" }}
+      {{ $papier := "" }}
+      {{ range .JSON.Array "result" }}
+        {{ $date := .String "date" }}
+        {{ if eq $date $tomorrow }}
+          {{ if and (eq (.String "waste_type") "cardboard") (eq $karton "") }}{{ $karton = $date }}{{ end }}
+          {{ if and (eq (.String "waste_type") "paper") (eq $papier "") }}{{ $papier = $date }}{{ end }}
+        {{ end }}
+      {{ end }}
+      {{ if or (ne $karton "") (ne $papier "") }}
+        <ul class="list list-gap-10">
+          {{ if ne $karton "" }}{{ $kt := $karton | parseTime "DateOnly" }}
+            <li class="flex justify-between items-center gap-10">
+              <span class="size-h4">Karton</span>
+              <span class="color-paragraph">tomorrow · {{ formatTime "Mon Jan 02" $kt }}</span>
+            </li>
+          {{ end }}
+          {{ if ne $papier "" }}{{ $pt := $papier | parseTime "DateOnly" }}
+            <li class="flex justify-between items-center gap-10">
+              <span class="size-h4">Papier</span>
+              <span class="color-paragraph">tomorrow · {{ formatTime "Mon Jan 02" $pt }}</span>
+            </li>
+          {{ end }}
+        </ul>
+      {{ else }}
+        <p class="color-paragraph">Nothing tomorrow.</p>
+      {{ end }}
+    '';
+  };
+
   dashboardPage = {
     name = "Dashboard";
     columns = [{
       size = "full";
       widgets = [
-        {
-          type = "custom-api";
-          title = "Bus 31 → Hermetschloo";
-          cache = "30s";
-          url = "https://transport.opendata.ch/v1/stationboard?station=Waserstrasse&limit=20&transportations[]=bus";
-          template = ''
-            <ul class="list list-gap-10">
-            {{ $count := 0 }}
-            {{ range .JSON.Array "stationboard" }}
-              {{ if and (lt $count 3) (and (eq (.String "number") "31") (eq (.String "to") "Zürich, Hermetschloo")) }}
-                {{ $t := .String "stop.departure" | parseTime "2006-01-02T15:04:05-0700" }}
-                <li class="flex justify-between items-center gap-10">
-                  <span class="size-h4 color-highlight" {{ $t | toRelativeTime }}></span>
-                  <span class="color-paragraph">{{ formatTime "15:04" $t }}{{ if gt (.Int "stop.delay") 0 }} <span class="color-negative">+{{ .Int "stop.delay" }}'</span>{{ end }}</span>
-                </li>
-                {{ $count = add $count 1 }}
-              {{ end }}
-            {{ end }}
-            </ul>
-          '';
-        }
-        {
-          type = "weather";
-          location = "Zürich, Switzerland";
-          units = "metric";
-          hour-format = "24h";
-        }
-        {
-          type = "custom-api";
-          title = "Recycling";
-          cache = "6h";
-          url = "https://openerz.metaodi.ch/api/calendar.json?zip=8053&types=cardboard&types=paper";
-          template = ''
-            {{ $today := now | startOfDay }}
-            {{ $karton := "" }}
-            {{ $papier := "" }}
-            {{ range .JSON.Array "result" }}
-              {{ $date := .String "date" }}
-              {{ $d := $date | parseTime "DateOnly" }}
-              {{ if not ($d.Before $today) }}
-                {{ if and (eq (.String "waste_type") "cardboard") (eq $karton "") }}{{ $karton = $date }}{{ end }}
-                {{ if and (eq (.String "waste_type") "paper") (eq $papier "") }}{{ $papier = $date }}{{ end }}
-              {{ end }}
-            {{ end }}
-            <ul class="list list-gap-10">
-              {{ if ne $karton "" }}{{ $kt := $karton | parseTime "DateOnly" }}
-                <li class="flex justify-between items-center gap-10">
-                  <span class="size-h4">Karton</span>
-                  <span class="color-paragraph"><span {{ $kt | toRelativeTime }}></span> · {{ formatTime "Mon Jan 02" $kt }}</span>
-                </li>
-              {{ end }}
-              {{ if ne $papier "" }}{{ $pt := $papier | parseTime "DateOnly" }}
-                <li class="flex justify-between items-center gap-10">
-                  <span class="size-h4">Papier</span>
-                  <span class="color-paragraph"><span {{ $pt | toRelativeTime }}></span> · {{ formatTime "Mon Jan 02" $pt }}</span>
-                </li>
-              {{ end }}
-            </ul>
-          '';
-        }
+        sbbDeparturesWidget
+        weatherWidget
+        recyclingWidget
       ];
     }];
   };
