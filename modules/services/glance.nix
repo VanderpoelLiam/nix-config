@@ -58,16 +58,6 @@ let
     '';
   };
 
-  weatherWidget = {
-    type = "custom-api";
-    title = "Weather";
-    url = "http://localhost:8080/assets/weather.json";
-    cache = "5m";
-    template = ''
-      <img src="/assets/weather.png?v={{ .JSON.Int "forecastGenerationTimestamp" }}" alt="Weather forecast" style="width:100%;display:block;border-radius:6px">
-    '';
-  };
-
   recyclingWidget = {
     type = "custom-api";
     title = "Recycling";
@@ -112,7 +102,6 @@ let
       widgets = [
         recyclingWidget
         sbbDeparturesWidget
-        weatherWidget
       ];
     }];
   };
@@ -199,7 +188,6 @@ in
       server = {
         host = "localhost";
         port = 8080;
-        assets-path = config.services.meteoswiss-forecast.dataDir;
       };
       document.head = ''<meta http-equiv="refresh" content="60">'';
       branding.hide-footer = true;
