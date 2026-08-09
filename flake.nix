@@ -24,6 +24,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    pi-dashboard = {
+      url = "github:VanderpoelLiam/pi-dashboard";
+      flake = false;
+    };
   };
 
   outputs = { ... }@inputs:
