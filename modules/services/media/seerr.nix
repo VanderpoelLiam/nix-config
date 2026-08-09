@@ -1,6 +1,6 @@
 { config, lib, userConfig, ... }:
 let
-  service = "jellyseerr";
+  service = "seerr";
   cfg = config.services.${service};
 in
 {

@@ -42,7 +42,7 @@
   services.sonarr.enable = true;
   services.radarr.enable = true;
   services.prowlarr.enable = true;
-  services.jellyseerr.enable = true;
+  services.seerr.enable = true;
   services.jellyfin.enable = true;
   services.qbittorrent.enable = true;
 

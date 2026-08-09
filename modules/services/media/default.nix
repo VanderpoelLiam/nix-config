@@ -7,7 +7,7 @@ in
     ./sonarr.nix
     ./radarr.nix
     ./prowlarr.nix
-    ./jellyseerr.nix
+    ./seerr.nix
     ./jellyfin.nix
     ./qbittorrent.nix
   ];
