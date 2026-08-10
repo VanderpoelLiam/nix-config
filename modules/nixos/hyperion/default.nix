@@ -36,6 +36,7 @@
 
   services.tailscale.enable = true;
   services.pihole.enable = true;
+  services.mosquitto.enable = true;
   services.homeassistant.enable = true;
   services.dashboard.enable = true;
   services.koifit.enable = true;
