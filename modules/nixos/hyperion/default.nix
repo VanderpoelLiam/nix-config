@@ -34,7 +34,13 @@
 
   services.caddy.enable = true;
 
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    extraSetFlags = [
+      "--advertise-routes=192.168.1.111/32"
+      "--advertise-exit-node"
+    ];
+  };
   services.pihole.enable = true;
   services.mosquitto.enable = true;
   services.homeassistant.enable = true;
