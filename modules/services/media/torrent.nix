@@ -69,7 +69,7 @@ in
 
       oci-containers.containers = {
         gluetun = {
-          image = "qmcgaw/gluetun:latest";
+          image = "docker.io/qmcgaw/gluetun:latest";
           autoStart = true;
           extraOptions = [
             "--cap-add=NET_ADMIN"
