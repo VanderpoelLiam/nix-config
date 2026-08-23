@@ -6,6 +6,7 @@
   ];
 
   networking.hostName = "trantor";
+  time.timeZone = userConfig.global.timezone;
 
   security.sudo.wheelNeedsPassword = false;
 
@@ -32,14 +33,16 @@
   };
 
   services.caddy.enable = true;
-
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    extraSetFlags = [ "--advertise-routes=192.168.1.82/32" ];
+  };
   services.sonarr.enable = true;
   services.radarr.enable = true;
   services.prowlarr.enable = true;
   services.seerr.enable = true;
   services.jellyfin.enable = true;
-  services.qbittorrent.enable = true;
+  services.torrent.enable = true;
 
   networking.nftables.enable = true;
   networking.firewall = {
