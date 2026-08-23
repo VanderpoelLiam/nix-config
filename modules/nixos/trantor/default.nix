@@ -9,6 +9,11 @@
 
   security.sudo.wheelNeedsPassword = false;
 
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  };
+
   environment.systemPackages = [ pkgs.ghostty.terminfo ];
 
   # Enable Podman for OCI containers
@@ -25,6 +30,8 @@
       PermitRootLogin = "no";
     };
   };
+
+  services.caddy.enable = true;
 
   services.tailscale.enable = true;
   services.sonarr.enable = true;
