@@ -142,8 +142,6 @@ I reccomend disabling key expiry in the Tailscale Admin console, and edit the AC
 sudo tailscale set --ssh
 ```
 
-
-
 ### Add Server Key to sops
 
 If the server uses secrets, Add the server's SSH host key to sops. This uses [ssh-to-age](https://github.com/Mic92/ssh-to-age) to convert the existing SSH host key 

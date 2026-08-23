@@ -1,6 +1,7 @@
 keys:
   - &admin_liam age143cr0t48ufnsmz97vhys7rl36qghdunk3d6avgtqax73flqsny8qemlw8t
   - &hyperion_server age1gk96gxxyn0kpf3ny5w399zyg05nmnwt2p0eurk98px3wgewsc4jqzqvdf0
+  - &trantor_server age14vw7eztur7mqg6n9zyjfhmvgzhvtcr9vys5s488x50kqc6fxqp2qx9r6yd
 
 creation_rules:
   - path_regex: modules/nixos/hyperion/secrets\.yaml$
@@ -8,3 +9,8 @@ creation_rules:
       - age:
           - *admin_liam
           - *hyperion_server
+  - path_regex: modules/nixos/trantor/secrets\.yaml$
+    key_groups:
+      - age:
+          - *admin_liam
+          - *trantor_server
