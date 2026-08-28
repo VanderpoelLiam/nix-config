@@ -28,10 +28,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # Allow hardware acceleration for Intel GPU transcoding
+    # Allow hardware acceleration for GPU transcoding.
     systemd.services.jellyfin.serviceConfig = {
-      DeviceAllow = [ "/dev/dri" ];
+      DeviceAllow = [ "char-drm rwm" ];
     };
+
+    users.users.jellyfin.extraGroups = [ "render" "video" ];
 
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = userConfig.global.baseDomain;
