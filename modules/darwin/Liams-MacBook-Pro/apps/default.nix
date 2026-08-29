@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    ./cursor/cursor.nix
+    ./zed/zed.nix
     ./rectangle/rectangle.nix
     ./raycast/raycast.nix
     ./zsh.nix

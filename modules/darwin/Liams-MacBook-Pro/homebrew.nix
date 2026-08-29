@@ -27,7 +27,7 @@
       "Trello" = 1278508951;
     };
     casks = [
-      "cursor"
+      "zed"
       "firefox"
       "ghostty"
       "font-atkinson-hyperlegible-mono"

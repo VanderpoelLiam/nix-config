@@ -19,7 +19,7 @@
         show-recents = false; # Disable "Recently Used Apps" section
         persistent-apps = [
           "/Applications/Firefox.app"
-          "/Applications/Cursor.app"
+          "/Applications/Zed.app"
           "/Applications/Trello.app"
           "/Applications/WhatsApp.app"
           "/System/Applications/Messages.app"

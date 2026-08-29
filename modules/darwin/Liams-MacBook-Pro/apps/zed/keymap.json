@@ -1,0 +1,11 @@
+[
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "space f": "file_finder::Toggle",
+      "space p": "command_palette::Toggle",
+      "space e": "project_panel::ToggleFocus",
+      "space /": "pane::DeploySearch"
+    }
+  }
+]
