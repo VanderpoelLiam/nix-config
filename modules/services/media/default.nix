@@ -12,6 +12,15 @@ let
 
   webServices = [ "sonarr" "radarr" "prowlarr" "seerr" "jellyfin" "torrent" ];
   elsewhere = lib.filter (s: !config.services.${s}.enable) webServices;
+
+  proxyToMediaHost = ''
+    reverse_proxy https://${mediaHost} {
+      header_up Host {host}
+      transport http {
+        tls_server_name {host}
+      }
+    }
+  '';
 in
 {
   imports = [
@@ -55,18 +64,22 @@ in
         name = config.services.${service}.url;
         value = {
           useACMEHost = userConfig.global.baseDomain;
-          # By tailnet name: these vhost names resolve back to this host.
-          extraConfig = ''
-            reverse_proxy https://${mediaHost} {
-              header_up Host {host}
-              transport http {
-                tls_server_name {host}
-              }
-            }
-          '';
+          extraConfig = proxyToMediaHost;
         };
       }) elsewhere
-    );
+    )
+    # Plain HTTP for the TV, which rejects Let's Encrypt's chain.
+    // lib.optionalAttrs (builtins.elem "jellyfin" elsewhere) {
+      "http://${config.services.jellyfin.url}".extraConfig = ''
+        @lan remote_ip 192.168.1.0/24
+        handle @lan {
+          ${proxyToMediaHost}
+        }
+        handle {
+          abort
+        }
+      '';
+    };
   }
 
   ];
