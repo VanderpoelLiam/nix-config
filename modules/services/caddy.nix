@@ -16,6 +16,8 @@ in
     security.acme = {
       acceptTerms = true;
       defaults.email = userConfig.global.gitEmail;
+      # RSA rather than the ec256 default, for compatibility with older TV.
+      defaults.keyType = "rsa2048";
 
       certs."${userConfig.global.baseDomain}" = {
         group = config.services.caddy.group;
