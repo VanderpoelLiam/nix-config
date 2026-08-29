@@ -33,10 +33,7 @@
   };
 
   services.caddy.enable = true;
-  services.tailscale = {
-    enable = true;
-    extraSetFlags = [ "--advertise-routes=192.168.1.82/32" ];
-  };
+  services.tailscale.enable = true;
   services.sonarr.enable = true;
   services.radarr.enable = true;
   services.prowlarr.enable = true;
