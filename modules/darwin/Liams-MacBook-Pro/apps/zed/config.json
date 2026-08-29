@@ -15,7 +15,6 @@
   "buffer_font_features": {
     "calt": true
   },
-  "confirm_quit": false,
   "terminal": {
     "font_family": "Atkinson Hyperlegible Mono",
     "font_size": 14
