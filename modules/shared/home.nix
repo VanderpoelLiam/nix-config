@@ -15,6 +15,7 @@
     fzf
     just
     less
+    nixd
     oh-my-zsh
     ripgrep
     tree
