@@ -60,21 +60,32 @@ in
       seafile_admin_password = { };
     };
 
-    sops.templates."seafile-db.env".content = ''
-      MYSQL_ROOT_PASSWORD=${config.sops.placeholder.seafile_db_root_password}
-    '';
+    # The containers read these through --env-file at a fixed path, so rotating
+    # a secret changes the file without changing the unit. Restart explicitly.
+    sops.templates."seafile-db.env" = {
+      restartUnits = [ "podman-seafile-db.service" ];
+      content = ''
+        MYSQL_ROOT_PASSWORD=${config.sops.placeholder.seafile_db_root_password}
+      '';
+    };
 
-    sops.templates."seafile-redis.env".content = ''
-      REDIS_PASSWORD=${config.sops.placeholder.seafile_redis_password}
-    '';
+    sops.templates."seafile-redis.env" = {
+      restartUnits = [ "podman-seafile-redis.service" ];
+      content = ''
+        REDIS_PASSWORD=${config.sops.placeholder.seafile_redis_password}
+      '';
+    };
 
-    sops.templates."seafile.env".content = ''
-      INIT_SEAFILE_MYSQL_ROOT_PASSWORD=${config.sops.placeholder.seafile_db_root_password}
-      SEAFILE_MYSQL_DB_PASSWORD=${config.sops.placeholder.seafile_db_password}
-      REDIS_PASSWORD=${config.sops.placeholder.seafile_redis_password}
-      JWT_PRIVATE_KEY=${config.sops.placeholder.seafile_jwt_private_key}
-      INIT_SEAFILE_ADMIN_PASSWORD=${config.sops.placeholder.seafile_admin_password}
-    '';
+    sops.templates."seafile.env" = {
+      restartUnits = [ "podman-seafile.service" ];
+      content = ''
+        INIT_SEAFILE_MYSQL_ROOT_PASSWORD=${config.sops.placeholder.seafile_db_root_password}
+        SEAFILE_MYSQL_DB_PASSWORD=${config.sops.placeholder.seafile_db_password}
+        REDIS_PASSWORD=${config.sops.placeholder.seafile_redis_password}
+        JWT_PRIVATE_KEY=${config.sops.placeholder.seafile_jwt_private_key}
+        INIT_SEAFILE_ADMIN_PASSWORD=${config.sops.placeholder.seafile_admin_password}
+      '';
+    };
 
     systemd.tmpfiles.rules = [
       "d ${cfg.configDir} 0750 root root - -"
