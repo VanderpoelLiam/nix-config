@@ -46,6 +46,7 @@
   services.homeassistant.enable = true;
   services.dashboard.enable = true;
   services.koifit.enable = true;
+  services.seafile.enable = true;
 
   networking.nftables.enable = true;
   networking.firewall = {
