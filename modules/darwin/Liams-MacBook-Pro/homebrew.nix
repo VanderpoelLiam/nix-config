@@ -33,7 +33,6 @@
       "rectangle" 
       "calibre"
       "vlc"
-      "spotify"
       "bitwarden"
       "seafile-client"
       "tailscale-app"
@@ -44,7 +43,6 @@
     taps = [];
     brews = [
       "hugo"
-      "ollama"
     ];
   };
 }
