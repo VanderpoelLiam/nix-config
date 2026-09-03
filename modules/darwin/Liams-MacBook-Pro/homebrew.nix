@@ -35,6 +35,7 @@
       "vlc"
       "spotify"
       "bitwarden"
+      "seafile-client"
       "tailscale-app"
       "raycast"
       "claude-code"
