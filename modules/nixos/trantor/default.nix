@@ -52,6 +52,9 @@
     '';
   };
 
+  # systemd pets /dev/watchdog; if it stops for 60s the chipset resets the machine.
+  systemd.settings.Manager.RuntimeWatchdogSec = "60s";
+
   system.autoUpgrade = {
     enable = true;
     flake = "github:VanderpoelLiam/nix-config#trantor";
