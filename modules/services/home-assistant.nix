@@ -51,9 +51,11 @@ in
       oci-containers.containers.${service} = {
         image = "ghcr.io/home-assistant/home-assistant:stable";
         autoStart = true;
+        # Host networking so Home Assistant can discover devices on the LAN.
         extraOptions = [
           "--pull=newer"
           "--privileged"
+          "--network=host"
           "--device=/dev/ttyACM0:/dev/ttyACM0"
         ];
         volumes = [
@@ -61,7 +63,6 @@ in
           "/etc/zoneinfo:/etc/localtime:ro"
           "/run/dbus:/run/dbus:ro"
         ];
-        ports = [ "127.0.0.1:8123:8123" ];
         environment = {
           TZ = userConfig.global.timezone;
         };
