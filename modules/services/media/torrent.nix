@@ -3,6 +3,38 @@ let
   service = "torrent";
   cfg = config.services.${service};
   port = toString cfg.webuiPort;
+
+  # libtorrent enumerates its listen interfaces once, at startup. When gluetun
+  # reconnects -- a healthcheck failure is enough -- tun0 goes away and comes
+  # back, and qBittorrent never re-binds to it. Every peer socket is then
+  # sourced from eth0, where gluetun's OUTPUT policy silently drops it, so
+  # torrents sit at zero peers until the container is restarted. Naming the
+  # interface makes libtorrent re-bind on its own, and keeps it off eth0.
+  pinToTunnel = pkgs.writeShellScript "qbittorrent-pin-tunnel" ''
+    conf=${cfg.configDir}/config/qBittorrent.conf
+    [ -f "$conf" ] || exit 0
+    tmp=$(${pkgs.coreutils}/bin/mktemp)
+    ${pkgs.gawk}/bin/awk '
+      /^Session\\Interface=/ { next }
+      /^Session\\InterfaceName=/ { next }
+      { print }
+      /^\[BitTorrent\]$/ && !seen {
+        print "Session\\Interface=tun0"
+        print "Session\\InterfaceName=tun0"
+        seen = 1
+      }
+      END {
+        if (!seen) {
+          print "[BitTorrent]"
+          print "Session\\Interface=tun0"
+          print "Session\\InterfaceName=tun0"
+        }
+      }
+    ' "$conf" > "$tmp"
+    ${pkgs.coreutils}/bin/chown --reference="$conf" "$tmp"
+    ${pkgs.coreutils}/bin/chmod --reference="$conf" "$tmp"
+    ${pkgs.coreutils}/bin/mv "$tmp" "$conf"
+  '';
 in
 {
   options.services.${service} = {
@@ -113,7 +145,11 @@ in
     systemd.services.podman-qbittorrent = {
       bindsTo = [ "podman-gluetun.service" ];
       upheldBy = [ "podman-gluetun.service" ];
-      serviceConfig.Restart = lib.mkForce "always";
+      serviceConfig = {
+        Restart = lib.mkForce "always";
+        # Runs while the container is down, so qBittorrent cannot overwrite it on exit.
+        ExecStartPre = lib.mkAfter [ "${pinToTunnel}" ];
+      };
     };
 
     services.caddy.virtualHosts."${cfg.url}" = {
