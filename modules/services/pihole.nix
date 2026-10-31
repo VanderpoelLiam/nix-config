@@ -64,6 +64,7 @@ in
           TZ = userConfig.global.timezone;
           FTLCONF_dns_listeningMode = "all";
           FTLCONF_webserver_port = "8081";
+          FTLCONF_webserver_domain = cfg.url;
           FTLCONF_webserver_api_password = "";
         };
         volumes = [
