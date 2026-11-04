@@ -178,11 +178,11 @@
     "pi-dashboard": {
       "flake": false,
       "locked": {
-        "lastModified": 1793559701,
-        "narHash": "sha256-zXr8HEX/DesL+5jXO3jODzvZ5ALzjlbHpglawUmpuNc=",
+        "lastModified": 1793826847,
+        "narHash": "sha256-qU+0eUQ0JFesZIBqmc5Hdih1Kpr4qCCc75tXMvRG/rU=",
         "owner": "VanderpoelLiam",
         "repo": "pi-dashboard",
-        "rev": "9b316424a65e99e15c83f959c5875a3a5664eb7a",
+        "rev": "2197933c76f2a48531fc24fbdf24a224cb840a38",
         "type": "github"
       },
       "original": {
